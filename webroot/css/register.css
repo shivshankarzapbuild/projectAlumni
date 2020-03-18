@@ -1,0 +1,120 @@
+body{
+	background-image: url("../img/background.jpg");
+	background-color: cyan;
+}
+
+h1{
+	color: red;
+	text-shadow: 2px 2px cyan;
+}
+h2{
+	color: blue;
+	text-shadow: 2px 2px cyan;
+	margin-bottom: 10px;
+}
+span{
+
+	color: red;
+}
+.col1{
+	margin-top: 1%;
+	padding: 25px;
+	margin-bottom: 12%;
+	background-color: #316465;
+	margin-right: 0px;
+	box-shadow: 5px 0px 5px 5px #184965;
+}
+.col2{
+
+	margin-top: 5%;
+	margin-left: 7%;
+	margin-bottom: 20%;
+	box-shadow: 5px 0px 5px 5px #184965;
+}
+.navbar{
+	font-size: 30px;
+
+}
+.navbar-brand{
+	font-size: 30px;
+
+}
+.nav-item{
+
+	color: red;
+	font-size: 20px;
+	margin-right: 15px;
+	
+}
+label.required:after 
+{ 
+  content: " *"; 
+  color: red; 
+}
+
+
+.nav-link{
+
+	color: red;
+}
+header{
+
+	padding-top: 50px;
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+.fa:hover {
+    opacity: 0.7;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.message {
+    padding: 15rem;
+
+    background: #eff8ff;
+    color: #458155;
+
+    border-color: #6cb2eb;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+.message.hidden {
+    display: none;
+}
+.message.success {
+    background: #e3fcec;
+    color: #1f9d55;
+    border-color: #51d88a;
+}
+.message.error {
+    background: #fcebea;
+    color: #cc1f1a;
+    border-color: #ef5753;
+}

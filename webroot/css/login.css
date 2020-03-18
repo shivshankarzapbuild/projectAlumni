@@ -1,0 +1,83 @@
+.layout{
+    width: 100%;
+    height: 230px;  
+    position: relative;
+    margin: auto;
+    background-image:('../img/destination_1.jpg');
+}
+
+.layout-image{
+    width: 940px;
+    height: 230px;
+    position: relative;
+    margin: auto;
+}
+
+.carousel {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden
+}
+span{
+
+  color: black;
+}
+.navbar-brand{
+
+  color: black;
+}
+
+.carousel-item {
+  position: relative;
+  /*display: none;*/
+  margin: 0 auto;
+  width: 100%
+}
+.row{
+
+  width: 100%;
+  padding-left: 20px;
+  padding-top: 150px;
+
+}
+.navbar{
+
+  color: black;
+}
+#login_form{
+  padding-left: 0px;
+  padding-top: 50px;
+  margin-top: 1%;
+  padding: 35px;
+  margin-right: 0px;
+  border: 1px solid black;
+  
+}
+#login_form:hover{
+  box-shadow: 5px 0px 5px 5px #184965;
+}
+.col2{
+
+  margin-top: 1%;
+  margin-left: 7%;
+  box-shadow: 5px 0px 5px 5px #184965;
+}
+.navbar{
+  font-size: 30px;
+
+}
+/*.required{
+  background-color: red;
+}*/
+label.required:after 
+{ 
+  content: " *"; 
+  color: red; 
+}

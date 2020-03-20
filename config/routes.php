@@ -65,6 +65,9 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/', ['controller' => 'Users', 'action' => 'index']);
     $builder->connect('/users/home', ['controller' => 'Users', 'action' => 'home']);
     $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
+    $builder->connect('/users/profile', ['controller' => 'Users', 'action' => 'profile']);
+    $builder->connect('/users/posts/add', ['controller' => 'Posts', 'action' => 'add']);
+    $builder->connect('/admin', ['controller' => 'Admins', 'action' => 'index']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
 
     /*

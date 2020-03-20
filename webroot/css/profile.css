@@ -1,0 +1,49 @@
+.nav-item{
+
+    color: red;
+    font-size: 20px;
+    margin-right: 15px;
+    
+}
+
+.container{
+
+    font-size: 30px;
+}
+.nav-link{
+
+    color: red;
+}
+
+.row{
+    padding-left: -20px;
+    shape-margin: 0px;
+    margin-top: 70px;
+}
+.navbar_picture{
+    margin-right: 5px;
+    display: inline-block;
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile_picture{
+    margin-left:10px;
+    margin-top: 10px;
+
+
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+.profile_details{
+
+    margin-left:10px;
+    margin-top: 30px;
+
+}
+

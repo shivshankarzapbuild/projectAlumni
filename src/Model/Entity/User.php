@@ -19,6 +19,7 @@ class User extends Entity
         'password' => true,
         'created' => true,
         'modified' => true,
+        'role' => true,
         'dateofbirth' => true,
         'gender' => true,
         'status' => true,

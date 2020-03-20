@@ -308,7 +308,7 @@ class InitialTable extends AbstractMigration
             $this->table('posts')
 
 
-            ->addColumn('student_id','integer',[
+            ->addColumn('user_id','integer',[
 
 
                 'default' => null,
@@ -443,6 +443,13 @@ class InitialTable extends AbstractMigration
                 'default' => null,
                 'null' => false
 
+            ])
+            ->addColumn('role','enum',[
+
+                'values'=>['0','1'],
+                'default' => '1',
+                'limit' => null,
+                'null' => false
             ])
 
            ->addColumn('dateofbirth','string',[

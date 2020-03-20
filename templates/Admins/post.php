@@ -11,9 +11,6 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="/admins/users">Users</a>
-                        </li>
-                        <li>
                             <a href="/admins/posts">Posts</a>
                         </li>
                         <li>
@@ -94,7 +91,7 @@
             </nav>
             
             <h2>Users</h2>
-            <p><?= pr($users) ?></p>
+            <p>Justa the Paragraph</p>
            
             <div class="line"></div>
 

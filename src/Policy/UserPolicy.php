@@ -46,7 +46,7 @@ class UserPolicy
     }
     public function canProfile(IdentityInterface $user, User $resource){
 
-                return $this->isAuthor($user, $resource);
+            return $this->isAuthor($user, $resource);
 
     }
    

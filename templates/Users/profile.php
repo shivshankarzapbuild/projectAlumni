@@ -36,18 +36,55 @@
     </div>
 </nav>
 <div class="row">
-  <div class="col-sm-3" style="background-color: lavender">
+  <div class="col-sm-2" style="background-color: lavender">
     
       <?= $this->Html->image('destination_1.jpg',['class'=>'profile_picture']) ?>
           
       <div class="profile_details">
-        <p> THIS IS SOME TEXT</p>
+
+        <strong><a href="#" class=""> </strong>
       </div>
 
   </div>
-    <div class="col-sm-9" style="background-color:lavenderblush;">
+    <div class="col-sm-8" style="background-color:lavenderblush;box-shadow: 5px 5px 5px 5px #155256;">
 
-                  <p> THis is just right part</p>
+        <div class="row" style="box-shadow: 5px 5px 5px 5px #155256;">
+            <div class="col-sm-6">
 
+                <center><p> <a href="#"> Create aa New Post  </a></p> 
+
+                
+        
+                </center>
+                
+            </div>
+            <div class="col-sm-2" style="background-color: lavender;">
+                <a href="#" class="fa fa-pencil-square" aria-hidden="true"> </a>
+            </div>
+            <div class="col-sm-2" style="background-color: lavender;">
+             <a href="#" class="fa fa-picture-o" aria-hidden="true"> </a>
+            </div>
+            <div class="col-sm-2" style="background-color: lavender;">
+                <a href="#" class="fa fa-video-camera" aria-hidden="true"> </a>
+            </div>
+
+        </div>
+
+        <div class="posts" style=" margin-top: 30px;">
+
+
+                  <li> <?= $this->Html->link(__('New User'),['action'=>'call_modal'],['class'=>'overlay-add-user']) ?> </li>
+
+
+                  <h2> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
+
+        </div>
+    </div>
+
+    <div class="col-sm-2"> 
+      <div class = "modal fade" id = "dialogModalAddUsers" role = "dialog" >
+      <div class = "contentWrapAddUsers" > </div>
+      </div>
+      
     </div>
 </div>

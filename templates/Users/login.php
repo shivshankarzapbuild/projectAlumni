@@ -41,7 +41,7 @@
 			        <?php echo $this->Form->control('username',['type' => 'email','class'=>'form-control','placeholder' => 'Enter Email','label' => ['class' => 'required'],'required' => true]); ?>
 
 
-			        <?php echo $this->Form->control('password',['type' => 'password','class'=>'form-control','placeholder' => 'Enter Email','label' => ['class' => 'required'],'required' => true]); ?>
+			        <?php echo $this->Form->control('password',['type' => 'password','class'=>'form-control','placeholder' => 'Enter Password','label' => ['class' => 'required'],'required' => true]); ?>
 
 
 				    </fieldset>

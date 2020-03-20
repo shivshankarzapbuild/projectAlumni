@@ -19,6 +19,7 @@ class UsersController extends AppController
     {
     	$this->viewBuilder()->setLayout('indexLayout');
         $users = $this->paginate($this->Users);
+        $this->Authorization->skipAuthorization();
 
 
         // debug(get_included_files());
@@ -28,8 +29,15 @@ class UsersController extends AppController
 
     public function home(){
 
+            // $this->Authentication->getResult();
+            $users = $this->Authentication->getIdentity();
+
 			$this->set('title','Homepage');
 			$this->viewBuilder()->setLayout('HomeLayout');
+
+            $user = $this->Users->findById($users->id)->firstOrFail();
+
+            $this->Authorization->authorize($user);
 			
 		}
 
@@ -61,6 +69,9 @@ class UsersController extends AppController
     public function registration()
     {
 
+        $this->Authorization->skipAuthorization();
+
+
     	$this->set('title','Registration');
         $this->viewBuilder()->setLayout('Register');
         // $this->loadModel('Users');
@@ -89,11 +100,12 @@ class UsersController extends AppController
     }
 
     
-    public function edit($id = null)
+    public function edit($id)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
+        $user = $this->Users
+        ->findById($id) 
+        ->firstOrFail();
+        $this->Authorization->authorize($user);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -112,6 +124,8 @@ class UsersController extends AppController
 
     public function login(){
 
+        $this->Authorization->skipAuthorization();
+
 			$this->viewBuilder()->setLayout('Login');
 			$this->set('title','Login');
 
@@ -127,10 +141,29 @@ class UsersController extends AppController
 		    
 		    
 		    if ($result->isValid()) {
-		        $redirect = $this->request->getQuery('redirect', [
-		            'controller' => 'Users',
-		            'action' => 'home',
-		        ]);
+
+                $user = $this->Authentication->getIdentity();
+
+
+
+               // echo $user->role;die('users role ---------->');
+
+                if($user->role == '1'){
+
+                 $redirect = $this->request->getQuery('redirect', [
+                    'controller' => 'Users',
+                    'action' => 'home',
+                ]);
+                }
+                else{
+                     $redirect = $this->request->getQuery('redirect', [
+                    'controller' => 'Admins',
+                    'action' => 'index',
+                ]);
+
+                }
+
+		       
 
 		        return $this->redirect($redirect);
 		    }
@@ -146,6 +179,9 @@ class UsersController extends AppController
 
 
 	public function logout(){
+
+        $this->Authorization->skipAuthorization();
+
 			    $result = $this->Authentication->getResult();
 			    // regardless of POST or GET, redirect if user is logged in
 			    if ($result->isValid()) {
@@ -168,5 +204,19 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function profile(){
+
+     $users = $this->Authentication->getIdentity();
+
+        $this->viewBuilder()->setLayout('Profile');
+        $this->set('title','Profile');
+        
+        $user = $this->Users->findById($users->id)->firstOrFail();
+
+       $this->Authorization->authorize($user);
+
+
     }
 }

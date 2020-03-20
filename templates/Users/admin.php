@@ -1,0 +1,1 @@
+<title> <?=	$this->fetch('title'); ?>	</title>

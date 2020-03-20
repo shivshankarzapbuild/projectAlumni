@@ -25,7 +25,8 @@ class UsersController extends AppController
         // debug(get_included_files());
 
         $this->set(compact('users'));
-    }
+        $this->set('_serialize', ['users']); 
+  }
 
     public function home(){
 
@@ -217,6 +218,18 @@ class UsersController extends AppController
 
        $this->Authorization->authorize($user);
 
+       $this->set(compact('user'));
 
+
+    }
+
+    public function callModal(){
+
+        $this->viewBuilder()->layout('ajax');
+            if($this->request->is('ajax')){
+                    $user = $this->Users->newEmptyEntity();
+                    $this->set(compact('user'));
+                    $this->set('_serialize', ['user']);
+            }
     }
 }

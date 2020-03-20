@@ -6,9 +6,21 @@
 
 	class AdminsController extends AppController{
 
+		public function initialize() : void {
+
+			parent::initialize();
+			$this->loadModel('Users');
+		
+
+
+		}
+
 		public function index(){
 
+			 $users = $this->paginate($this->Users);
+
 			$this->viewBuilder()->setLayout('Admin');
+			// $users = $this->Authentication->getIdentity();
 	        
 	        $this->Authorization->skipAuthorization();
 
@@ -16,6 +28,12 @@
         // debug(get_included_files());
 
         $this->set(compact('users'));
+		}
+		public function users(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+
 		}
 
 

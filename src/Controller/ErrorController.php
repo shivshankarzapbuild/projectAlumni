@@ -67,4 +67,9 @@ class ErrorController extends AppController
     public function afterFilter(EventInterface $event)
     {
     }
+
+    public function error() {
+
+        $this->viewBuilder()->setLayout('error');
+    }
 }

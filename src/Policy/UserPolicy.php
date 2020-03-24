@@ -11,6 +11,14 @@ use Authorization\Policy\Result;
 
 class UserPolicy
 {
+
+    public function before($user, $resource, $action)
+    {
+        if ($user->getOriginalData()->is_admin) {
+            return false;
+        }
+        
+    }
     public function canCreate(IdentityInterface $user, User $resource)
     {
 
@@ -48,6 +56,10 @@ class UserPolicy
 
             return $this->isAuthor($user, $resource);
 
+    }
+    public function canAdmin(IdentityInterface $user, User $resource){
+
+        return false;
     }
    
 

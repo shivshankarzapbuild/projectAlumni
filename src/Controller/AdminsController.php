@@ -36,6 +36,15 @@
 
 		}
 
+		public function add(){
+			 $users = $this->paginate($this->Users);
+
+			$this->viewBuilder()->setLayout('Admin');
+
+
+
+		}
+
 
 		public function logout(){
 

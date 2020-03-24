@@ -39,7 +39,8 @@ class UsersController extends AppController
             $user = $this->Users->findById($users->id)->firstOrFail();
 
             $this->Authorization->authorize($user);
-			
+
+            $this->set(compact('users'));	
 		}
 
 
@@ -218,6 +219,61 @@ class UsersController extends AppController
 
        $this->Authorization->authorize($user);
 
+       $post = $this->Users->get($user->id);
+
+       if($this->request->is(['patch', 'post', 'put'])){
+        if(!empty($this->request->getData('image'))){
+                     
+                     $file =  $this->request->getData('image')->getClientFilename('image');
+                     
+
+                    $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
+                   
+                    $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
+                     echo $tmpPath;
+                   move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
+                    $post = $this->Users->patchEntity($post, $this->request->getData());
+                   
+                    $post['image'] = $file_name;
+                     }if ($this->Users->save($post)) {
+                            
+                            echo "<script>alert('The Profile Picture has been updated')</script>";
+
+                        return $this->redirect(['action' => 'profile']);
+            }
+            $this->Flash->error(__('The Profile Picture could not be saved. Please, try again.'));
+        
+     
+
+
+
+        
+       }
+   
+
+       
+
+    
+       //      if(!empty($this->request->getData('image'))){
+       //               $file =  $this->request->getData('image')->getClientFilename('image');
+       //              $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
+       //              $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
+       //             move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
+       //              $post = $this->Posts->patchEntity($post, $this->request->getData());
+                   
+       //              $post['image'] = $file_name;
+       //               }
+       //              if ($this->Posts->save($post)) {
+       //                  $this->Flash->success(__('The post has been saved.'));
+
+       //                  return $this->redirect(['action' => 'index']);
+       //      }
+       //      $this->Flash->error(__('The post could not be saved. Please, try again.'));
+        
+       //  }
+
+
+
        $this->set(compact('user'));
 
 
@@ -225,11 +281,24 @@ class UsersController extends AppController
 
     public function callModal(){
 
-        $this->viewBuilder()->layout('ajax');
+        $user = $this->Authorization->getIdentity();
+
+        $this->Authorization->authorize($user);
+
+        $this->viewBuilder()->setLayout('ajax');
+
             if($this->request->is('ajax')){
                     $user = $this->Users->newEmptyEntity();
                     $this->set(compact('user'));
-                    $this->set('_serialize', ['user']);
+                    // $this->set('_serialize', ['user']);
             }
+    }
+
+    public function admin(){
+
+        $user = $this->Authorization->getIdentity();
+        debug($user);
+        $this->Authorization->authorize($user);
+
     }
 }

@@ -67,9 +67,13 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
     $builder->connect('/users/profile', ['controller' => 'Users', 'action' => 'profile']);
     $builder->connect('/users/posts/add', ['controller' => 'Posts', 'action' => 'add']);
-    $builder->connect('/admin', ['controller' => 'Admins', 'action' => 'index']);
+    $builder->connect('/users/admin', ['controller' => 'Users', 'action' => 'admin']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
-    $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
+    // $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
+
+    $builder->connect('/admin', ['controller' => 'Admins', 'action' => 'index']);
+    $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);
+
 
 
     /*

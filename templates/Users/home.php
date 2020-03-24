@@ -12,7 +12,7 @@
                 </a>
           </li>
           <li class="nav-item">
-            <?= $this->Html->link(__('Profile'),['action' => 'profile','class' => 'nav-link']) ?>
+            <?= $this->Html->link(__('Profile'),['action' => 'profile','class' => 'nav-link',]) ?>
 
           </li>
           <li class="nav-item">

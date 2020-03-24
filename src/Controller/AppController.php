@@ -37,6 +37,10 @@ class AppController extends Controller
      *
      * @return void
      */
+
+    
+
+
     public function initialize(): void
     {
         parent::initialize();
@@ -44,7 +48,13 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-        $this->loadComponent('Authorization.Authorization');
+        $this->loadComponent('Authorization.Authorization',[
+            'authorize' => 'Controller'
+        ]);
+
+        // $this->Authorization->allow(['profile', 'login', 'registration', 'add']);
+
+       
 
 
         /*
@@ -53,4 +63,11 @@ class AppController extends Controller
          */
         $this->loadComponent('FormProtection');
     }
+        public function isAuthorized($user)
+        {
+            
+            return false;
+        }
+
+    
 }

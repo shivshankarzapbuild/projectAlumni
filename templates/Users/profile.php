@@ -38,11 +38,28 @@
 <div class="row">
   <div class="col-sm-2" style="background-color: lavender">
     
-      <?= $this->Html->image('destination_1.jpg',['class'=>'profile_picture']) ?>
+      <?= $this->Html->image($user->image,['class'=>'profile_picture']) ?>
+
+      
           
       <div class="profile_details">
 
         <strong><a href="#" class=""> </strong>
+      </div>
+      <div class="image_upload">
+
+      <?= $this->Form->create($user,['enctype' => 'multipart/form-data','class'=>'form-disable']) ?>
+
+
+                  <?php  
+                    echo $this->Form->control('image',['accept'=>['.jpg'],'type'=>'file','id'=>'file','onchange'=>'Filevalidation()']);
+                  ?>
+
+                  <center>
+                    <?= $this->Form->control('Update',['type'=>'submit'])?>
+                  </center>
+        
+      <?= $this->Form->end(); ?>
       </div>
 
   </div>
@@ -51,7 +68,7 @@
         <div class="row" style="box-shadow: 5px 5px 5px 5px #155256;">
             <div class="col-sm-6">
 
-                <center><p> <a href="#"> Create aa New Post  </a></p> 
+                <center><p> <a href="#"> Create a New Post  </a></p> 
 
                 
         
@@ -59,7 +76,7 @@
                 
             </div>
             <div class="col-sm-2" style="background-color: lavender;">
-                <a href="#" class="fa fa-pencil-square" aria-hidden="true"> </a>
+                <button class="fa fa-pencil-square" aria-hidden="true" onclick="openDialog()"> </button>
             </div>
             <div class="col-sm-2" style="background-color: lavender;">
              <a href="#" class="fa fa-picture-o" aria-hidden="true"> </a>
@@ -79,6 +96,9 @@
                   <h2> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
 
         </div>
+
+
+
     </div>
 
     <div class="col-sm-2"> 

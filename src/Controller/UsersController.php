@@ -148,7 +148,7 @@ class UsersController extends AppController
 
 
 
-               // echo $user->role;die('users role ---------->');
+               echo $user->role;die('users role ---------->');
 
                 if($user->role == '1'){
 
@@ -208,47 +208,39 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function profile(){
 
-     $users = $this->Authentication->getIdentity();
+
+public function profile(){
+
+       $users = $this->Authentication->getIdentity();
 
         $this->viewBuilder()->setLayout('Profile');
         $this->set('title','Profile');
         
         $user = $this->Users->findById($users->id)->firstOrFail();
 
-       $this->Authorization->authorize($user);
+        $this->Authorization->authorize($user);
 
-       $post = $this->Users->get($user->id);
+        $post = $this->Users->get($user->id);
 
-       if($this->request->is(['patch', 'post', 'put'])){
+    if($this->request->is(['patch', 'post', 'put'])){
         if(!empty($this->request->getData('image'))){
                      
-                     $file =  $this->request->getData('image')->getClientFilename('image');
-                     
-
-                    $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
-                   
-                    $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
-                     echo $tmpPath;
-                   move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
-                    $post = $this->Users->patchEntity($post, $this->request->getData());
-                   
-                    $post['image'] = $file_name;
-                     }if ($this->Users->save($post)) {
-                            
-                            echo "<script>alert('The Profile Picture has been updated')</script>";
-
-                        return $this->redirect(['action' => 'profile']);
+                $file =  $this->request->getData('image')->getClientFilename('image');
+                $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
+                $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
+                echo $tmpPath;
+                move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
+                $post = $this->Users->patchEntity($post, $this->request->getData());
+                $post['image'] = $file_name;
             }
+            if ($this->Users->save($post)) {
+                 echo "<script>alert('The Profile Picture has been updated')</script>";
+                 return $this->redirect(['action' => 'profile']);
+            }
+            
             $this->Flash->error(__('The Profile Picture could not be saved. Please, try again.'));
-        
-     
-
-
-
-        
-       }
+     }
    
 
        
@@ -277,7 +269,7 @@ class UsersController extends AppController
        $this->set(compact('user'));
 
 
-    }
+}
 
     public function callModal(){
 

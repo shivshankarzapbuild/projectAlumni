@@ -8,7 +8,6 @@ use Authorization\IdentityInterface;
 use Authorization\Policy\Result;
 
 
-
 class UserPolicy
 {
 

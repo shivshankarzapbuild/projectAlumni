@@ -68,7 +68,7 @@
         <div class="row" style="box-shadow: 5px 5px 5px 5px #155256;">
             <div class="col-sm-6">
 
-                <center><p> <a href="#"> Create a New Post  </a></p> 
+                <center><p> <a id = "openModal"> Create a New Post  </a></p> 
 
                 
         

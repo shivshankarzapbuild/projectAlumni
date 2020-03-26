@@ -5,25 +5,22 @@ namespace App\Policy;
 use Authorization\Policy\RequestPolicyInterface;
 use Cake\Http\ServerRequest;
 
+
 class RequestPolicy implements RequestPolicyInterface
 {
    
-    public function canAccess($identity, ServerRequest $request)
+   public function canAccess($identity, ServerRequest $request)
     {
-        die("User Policy--------------->");
 
-        if ($request->getParam('controller') === 'Users'
-            && $request->getParam('action') === 'home'
-        ) {
-            return true;
+    	// pr($identity);die("Request Policy");
+        if (isset($identity) && $identity->role != 3 && $request->getParam('prefix') === 'Admin') {
+
+            return false;
         }
-
-        return false;
-    }
-    public function canAccessHome($identity, ServerRequest $request){
 
         return true;
     }
+   
 }
 
 ?>

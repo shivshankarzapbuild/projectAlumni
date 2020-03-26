@@ -2,7 +2,11 @@
 
 	declare(strict_types=1);
 
-	namespace App\Controller;
+	namespace App\Controller\Admin;
+
+    use App\Controller\AppController;
+
+
 
 	class AdminsController extends AppController{
 
@@ -10,6 +14,8 @@
 
 			parent::initialize();
 			$this->loadModel('Users');
+
+			// die("Admins Controller ----------->");
 		
 
 
@@ -55,7 +61,7 @@
 			    // regardless of POST or GET, redirect if user is logged in
 			    if ($result->isValid()) {
 			        $this->Authentication->logout();
-			        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+			        return $this->redirect(['prefix' => ' ','controller' => 'Users', 'action' => 'login']);
 			    }
 			}
 	}

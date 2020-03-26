@@ -14,7 +14,7 @@
                             <a href="/admins/users">Users</a>
                         </li>
                         <li>
-                            <a href="/admins/posts">Posts</a>
+                            <a href="/admins/users">users</a>
                         </li>
                         <li>
                             <a href="#">Comments</a>
@@ -54,7 +54,7 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="/admins/logout" class="article">lOGOUT</a>
+                    <a href="/admin/logout" class="article">lOGOUT</a>
                 </li>
             </ul>
         </nav>
@@ -94,7 +94,48 @@
             </nav>
             
             <h2>Users</h2>
-            <p><?= pr($users) ?></p>
+            <p><h3><?= __('Users') ?></h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th><?= $this->Paginator->sort('id') ?></th>
+                    <th><?= $this->Paginator->sort('Name') ?></th>
+                    <th><?= $this->Paginator->sort('role') ?></th>
+                    <th><?= $this->Paginator->sort('status') ?></th>
+                    <th><?= $this->Paginator->sort('profile_pic') ?></th>
+
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('Posts') ?></th>
+
+                    
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= $this->Number->format($user->id) ?></td>
+                    <td><?= h($user->first_name . ' '. $user->middle_name .' '.$user->last_name) ?></td>
+                    <td><?= h($user->role) ?></td>
+                    <td><?= h($user->status) ?></td>
+                    <td><?= h($user->image) ?></td>
+                    <td><?= h(date_format($user->created,'M d Y')) ?></td>
+                    <td><?= h(date_format($user->modified,'M d Y')) ?></td>
+
+                    <td><?= $user->has('posts') ? $this->Html->link($user->posts->name, ['controller' => 'Posts', 'action' => 'view', $user->posts->id]) : '' ?></td>
+
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div></p>
            
             <div class="line"></div>
 

@@ -126,20 +126,18 @@ class UsersController extends AppController
     public function login(){
 
         $this->Authorization->skipAuthorization();
-        $this->viewBuilder()->setLayout('Login');
-                        $users = $this->paginate($this->Users); 
-
+        
+        
                
-                
+                $this->request->allowMethod(['get', 'post']);
                 
                 $result = $this->Authentication->getResult();
                 // regardless of POST or GET, redirect if user is logged in
-         if ($result->isValid()) {
+                if ($result->isValid()) {
 
                     // variable for dynamic menu
                     $_SESSION['user']='login';
-
-                    if($this->Authentication->getIdentityData('role')==3)
+                    if($this->Authentication->getIdentityData('type')==3)
                     {
                         $redirect = $this->request->getQuery('redirect', [
                             'controller' => 'Admin',
@@ -161,7 +159,6 @@ class UsersController extends AppController
                 {
                     $this->Flash->error(__('Invalid username or password'));
                 }
-                $this->set(compact('users'));
             }
 
 		

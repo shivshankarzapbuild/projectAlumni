@@ -5,9 +5,19 @@
 
 	class PostsController extends AppController{
 
+		public function index(){
+
+		}
 		public function add(){
 
-			$this->viewBuilder()->setLayout('addPosts');
+			$this->viewBuilder()->setLayout('Profile');
+			
+
+		}
+
+		public function delete($id = null){
+
+
 		}
 	}
 

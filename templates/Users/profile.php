@@ -63,37 +63,42 @@
       </div>
 
   </div>
-    <div class="col-sm-8" style="background-color:lavenderblush;box-shadow: 5px 5px 5px 5px #155256;">
+    <div class="col-sm-8" style="margin-top: 50px;">
 
-        <div class="row" style="box-shadow: 5px 5px 5px 5px #155256;">
-            <div class="col-sm-6">
+        
 
-                <center><p> <a id = "openModal"> Create a New Post  </a></p> 
+                <center><p> 
+          <button class="open-button" onclick="openForm()">Add Post</button>
+
+                <div class="form-popup" id="myForm">
+                  <form method="post" action="/posts/add" class="form-container" enctype="multipart/form-data">
+                    
+
+                    <textarea class="form-control" id="input" name="input" placeholder="Write Something"></textarea>
+
+                    <br><br>
+                    <input type="file" name="image" required><br><br>
+
+                    <button type="submit" class="btn">Post</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                  </form>
+                </div>
+              </p> 
 
                 
         
                 </center>
-                
-            </div>
-            <div class="col-sm-2" style="background-color: lavender;">
-                <button class="fa fa-pencil-square" aria-hidden="true" onclick="openDialog()"> </button>
-            </div>
-            <div class="col-sm-2" style="background-color: lavender;">
-             <a href="#" class="fa fa-picture-o" aria-hidden="true"> </a>
-            </div>
-            <div class="col-sm-2" style="background-color: lavender;">
-                <a href="#" class="fa fa-video-camera" aria-hidden="true"> </a>
-            </div>
 
-        </div>
+
+                
+           </div>
+
+        
 
         <div class="posts" style=" margin-top: 30px;">
 
 
-                  <li> <?= $this->Html->link(__('New User'),['action'=>'call_modal'],['class'=>'overlay-add-user']) ?> </li>
-
-
-                  <h2> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
+                  <h2 style="position: fixed;"> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
 
         </div>
 

@@ -39,8 +39,7 @@ use Authorization\Policy\OrmResolver;
 use Psr\Http\Message\ResponseInterface;
 use App\Policy\RequestPolicy;
 use Authorization\Policy\MapResolver;
-
-
+use Authorization\Policy\ResolverCollection;
 
 /**
  * Application setup class.
@@ -108,7 +107,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
                 // add Authentication after RoutingMiddleware
             ->add(new AuthenticationMiddleware($this))
-            ->add(new AuthorizationMiddleware($this));
+            ->add(new AuthorizationMiddleware($this))
+            ->add(new RequestAuthorizationMiddleware());
 
 
         return $middlewareQueue;
@@ -167,11 +167,13 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
             {
-                $resolver = new OrmResolver();
+                $ormResolver = new OrmResolver();
                 $mapResolver = new MapResolver();
                 $mapResolver->map(ServerRequest::class, RequestPolicy::class);
 
-                return new AuthorizationService($mapResolver);
+                $resolver = new ResolverCollection([$mapResolver, $ormResolver]);
+
+                return new AuthorizationService($resolver);
 
                 
             }

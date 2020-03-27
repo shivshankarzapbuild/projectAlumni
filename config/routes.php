@@ -71,7 +71,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/users/posts/add', ['controller' => 'Posts', 'action' => 'add']);
     $builder->connect('/users/admin', ['controller' => 'Users', 'action' => 'admin']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
-    // $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
+    $builder->connect('/posts/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
 
     // $builder->connect('/admin', ['prefix' => 'Admin','controller' => 'Admins', 'action' => 'index']);
     // $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);
@@ -87,7 +88,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
     // All routes here will be prefixed with `/admin`
     // And have the prefix => admin route element added.
     $routes->connect('/', ['controller' => 'Admins', 'action' => 'index']);
+    $routes->connect('/*', ['controller' => 'error', 'action' => 'error']);
+
     $routes->connect('/users', ['controller' => 'Admins', 'action' => 'users']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->fallbacks(DashedRoute::class);
     });
     /*

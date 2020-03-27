@@ -67,23 +67,23 @@
 
         
 
-                <center><p> 
+                <center> 
           <button class="open-button" onclick="openForm()">Add Post</button>
 
                 <div class="form-popup" id="myForm">
-                  <form method="post" action="/posts/add" class="form-container" enctype="multipart/form-data">
+                  <?= $this->form->create($user,['enctype'=>'multipart/form-data','class' => 'form-container','action'=>'/posts/add']) ?>
                     
-
-                    <textarea class="form-control" id="input" name="input" placeholder="Write Something"></textarea>
+                  <?= $this->form->control('text',['type'=>'textarea','id'=>'input','placeholder'=>'Write Something','class'=>'form-control'])?>
+                   
 
                     <br><br>
-                    <input type="file" name="image" required><br><br>
-
-                    <button type="submit" class="btn">Post</button>
-                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                  </form>
+                    <?= $this->form->control('image',['type'=>'file'])?>
+                    <?= $this->form->control('Post',['type'=>'submit','class'=>'btn'])?>
+                    <?= $this->form->control('Close',['class'=>'btn cancel','onclick'=>'closeForm()'])?>
+                 
+                  <?= $this->form->end() ?>
                 </div>
-              </p> 
+              
 
                 
         

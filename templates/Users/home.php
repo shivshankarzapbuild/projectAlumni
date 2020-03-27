@@ -30,9 +30,19 @@
     </div>
   </nav>
 
-  <div class="backgroundImage">
+  <div class="row">
+    <div class="col-sm-1" style="background-color: lavender;height: 500px;">
+      
+    </div>
+    <div class="col-sm-10">
 
+      <p style="margin-top: 100px;"> THis is just the paragraph</p>
+      
+    </div>
+       <div class="col-sm-1" style="background-color: lavender;height: 500px;">
+      
+    </div>
     
-
+    
   </div>
 

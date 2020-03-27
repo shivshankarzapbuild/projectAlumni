@@ -24,6 +24,8 @@
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
+
 
 /*
  * The default class to use for all routes
@@ -69,10 +71,11 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/users/posts/add', ['controller' => 'Posts', 'action' => 'add']);
     $builder->connect('/users/admin', ['controller' => 'Users', 'action' => 'admin']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
-    // $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
+    $builder->connect('/posts/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
 
-    $builder->connect('/admin', ['controller' => 'Admins', 'action' => 'index']);
-    $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);
+    // $builder->connect('/admin', ['prefix' => 'Admin','controller' => 'Admins', 'action' => 'index']);
+    // $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);
 
 
 
@@ -81,6 +84,16 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
+    Router::prefix('Admin', function (RouteBuilder $routes) {
+    // All routes here will be prefixed with `/admin`
+    // And have the prefix => admin route element added.
+    $routes->connect('/', ['controller' => 'Admins', 'action' => 'index']);
+    $routes->connect('/*', ['controller' => 'error', 'action' => 'error']);
+
+    $routes->connect('/users', ['controller' => 'Admins', 'action' => 'users']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $routes->fallbacks(DashedRoute::class);
+    });
     /*
      * Connect catchall routes for all controllers.
      *
@@ -96,6 +109,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
      */
     $builder->fallbacks();
 });
+
 
 /*
  * If you need a different set of middleware or none at all,

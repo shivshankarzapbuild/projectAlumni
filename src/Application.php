@@ -21,6 +21,8 @@ use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
+use Authorization\Policy\RequestPolicyInterface;
+use Cake\Http\ServerRequest;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use Authentication\AuthenticationService;
@@ -32,9 +34,12 @@ use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Middleware\RequestAuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
 use Psr\Http\Message\ResponseInterface;
-
+use App\Policy\RequestPolicy;
+use Authorization\Policy\MapResolver;
+use Authorization\Policy\ResolverCollection;
 
 /**
  * Application setup class.
@@ -67,6 +72,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
          * Debug Kit should not be installed on a production system
          */
         if (Configure::read('debug')) {
+
             $this->addPlugin('DebugKit');
         }
 
@@ -98,11 +104,11 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
             ->add(new RoutingMiddleware($this))
-            ->add(new RoutingMiddleware($this))
 
                 // add Authentication after RoutingMiddleware
             ->add(new AuthenticationMiddleware($this))
-            ->add(new AuthorizationMiddleware($this));
+            ->add(new AuthorizationMiddleware($this))
+            ->add(new RequestAuthorizationMiddleware());
 
 
         return $middlewareQueue;
@@ -161,8 +167,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
             {
-                $resolver = new OrmResolver();
+                $ormResolver = new OrmResolver();
+                $mapResolver = new MapResolver();
+                $mapResolver->map(ServerRequest::class, RequestPolicy::class);
+
+                $resolver = new ResolverCollection([$mapResolver, $ormResolver]);
 
                 return new AuthorizationService($resolver);
+
+                
             }
 }

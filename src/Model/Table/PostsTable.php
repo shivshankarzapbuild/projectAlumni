@@ -19,11 +19,16 @@
 					'foreignKey' => 'post_id'
 				]);
 
-				$this->belongsTo('students',[
+				$this->belongsTo('users',[
 
-					'foreignKey' => 'student_id',
+					'foreignKey' => 'user_id',
 					'joinType' => 'INNER'
 				]);
 			} 
+			public function validationDefault(Validator $validator) : Validator {
+
+				
+
+			}
 	}
 ?>

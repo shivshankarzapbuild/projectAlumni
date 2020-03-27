@@ -63,37 +63,42 @@
       </div>
 
   </div>
-    <div class="col-sm-8" style="background-color:lavenderblush;box-shadow: 5px 5px 5px 5px #155256;">
+    <div class="col-sm-8" style="margin-top: 50px;">
 
-        <div class="row" style="box-shadow: 5px 5px 5px 5px #155256;">
-            <div class="col-sm-6">
+        
 
-                <center><p> <a href="#"> Create a New Post  </a></p> 
+                <center> 
+          <button class="open-button" onclick="openForm()">Add Post</button>
+
+                <div class="form-popup" id="myForm">
+                  <?= $this->form->create($user,['enctype'=>'multipart/form-data','class' => 'form-container','action'=>'/posts/add']) ?>
+                    
+                  <?= $this->form->control('text',['type'=>'textarea','id'=>'input','placeholder'=>'Write Something','class'=>'form-control'])?>
+                   
+
+                    <br><br>
+                    <?= $this->form->control('image',['type'=>'file'])?>
+                    <?= $this->form->control('Post',['type'=>'submit','class'=>'btn'])?>
+                    <?= $this->form->control('Close',['class'=>'btn cancel','onclick'=>'closeForm()'])?>
+                 
+                  <?= $this->form->end() ?>
+                </div>
+              
 
                 
         
                 </center>
-                
-            </div>
-            <div class="col-sm-2" style="background-color: lavender;">
-                <button class="fa fa-pencil-square" aria-hidden="true" onclick="openDialog()"> </button>
-            </div>
-            <div class="col-sm-2" style="background-color: lavender;">
-             <a href="#" class="fa fa-picture-o" aria-hidden="true"> </a>
-            </div>
-            <div class="col-sm-2" style="background-color: lavender;">
-                <a href="#" class="fa fa-video-camera" aria-hidden="true"> </a>
-            </div>
 
-        </div>
+
+                
+           </div>
+
+        
 
         <div class="posts" style=" margin-top: 30px;">
 
 
-                  <li> <?= $this->Html->link(__('New User'),['action'=>'call_modal'],['class'=>'overlay-add-user']) ?> </li>
-
-
-                  <h2> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
+                  <h2 style="position: fixed;"> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
 
         </div>
 

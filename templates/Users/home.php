@@ -36,7 +36,41 @@
     </div>
     <div class="col-sm-10">
 
-      <p style="margin-top: 100px;"> THis is just the paragraph</p>
+ 
+
+
+          <?php  foreach ($posts as $post): ?>
+
+            
+
+        
+      <center>
+      <article class="articleClass">
+        <header >
+          <div class="header" > 
+            
+            <h2> <?php echo $post->post; ?></h2>
+            <h4> <?php echo " "; ?></h4>
+          </div>
+         
+
+        </header>
+
+         <div class="image_field"> 
+
+          </div>
+
+          <div class="akhfhd">
+            <div>
+              <?= $this->Html->image($post->image,['alt'=>'Note this ','class'=>'image_card','width'=>'598','height'=>'400'])?>
+            </div>
+          </div>
+      </article>
+
+      </center>
+
+     
+    <?php endforeach; ?>
       
     </div>
        <div class="col-sm-1" style="background-color: lavender;height: 500px;">

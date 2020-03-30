@@ -19,6 +19,10 @@ class UsersTable extends Table
         $this->setDisplayField('first_name');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('posts',[
+            'foreignKey' => 'user_id'
+        ]);
+
         $this->addBehavior('Timestamp');
     }
 

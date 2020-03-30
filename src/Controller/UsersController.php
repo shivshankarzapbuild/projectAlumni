@@ -30,16 +30,32 @@ class UsersController extends AppController
     public function home(){
 
             // $this->Authentication->getResult();
-            $users = $this->Authentication->getIdentity();
+            $user = $this->Authentication->getIdentity();
+
+            $users = $this->Users->get($user->id, [
+            'contain' => ['posts'],
+            ]);
+
+            $posts = $this->Users->Posts->find('list',['limit'=>200]);
+
+            
+
+
+            // die(" users identity------------>>");
+            // $this->
+            $this->loadModel('Posts');
 
 			$this->set('title','Homepage');
 			$this->viewBuilder()->setLayout('HomeLayout');
 
+
+
             $user = $this->Users->findById($users->id)->firstOrFail();
+            $posts = $this->paginate($this->Posts);
 
             $this->Authorization->authorize($user);
 
-            $this->set(compact('users'));	
+            $this->set(compact('users','posts'));	
 		}
 
 
@@ -211,7 +227,8 @@ public function profile(){
         $post = $this->Users->get($user->id);
 
     if($this->request->is(['patch', 'post', 'put'])){
-        if(!empty($this->request->getData('image'))){
+
+             if(!empty($this->request->getData('image'))){
                      
                 $file =  $this->request->getData('image')->getClientFilename('image');
                 $file_name = date("dmYHis").preg_replace('/\s/', '', $file);

@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Utility\Security;
+use Cake\Mailer\Mailer;
+
+use Authentication\PasswordHasher\DefaultPasswordHasher; 
+
+
 
 class UsersController extends AppController
 {
@@ -78,7 +84,7 @@ class UsersController extends AppController
             // Configure the login action to not require authentication, preventing
             // the infinite redirect loop issue
             $this->Authentication->addUnauthenticatedActions(['login']);
-            $this->Authentication->addUnauthenticatedActions(['login', 'registration','index']);
+            $this->Authentication->addUnauthenticatedActions(['login', 'registration','index','resetpassword','forgotpassword']);
         }
 
 
@@ -175,7 +181,7 @@ class UsersController extends AppController
                 // display error if user submitted and authentication failed
                 if ($this->request->is('post') && !$result->isValid()) 
                 {
-                    $this->Flash->error(__('Invalid username or password'));
+                    $this->Flash->success(__('Invalid username or password'));
                 }
                 $this->set(compact('users'));
             }
@@ -295,6 +301,79 @@ public function profile(){
         $user = $this->Authorization->getIdentity();
         debug($user);
         $this->Authorization->authorize($user);
+
+    }
+
+
+    
+
+    public function forgotpassword(){
+
+        $this->Authorization->skipAuthorization();
+        $this->viewBuilder()->setLayout('resetpassword');
+
+        if($this->request->is('post')){
+
+            $myemail = $this->request->getData('email');
+
+             // pr($myemail); 
+
+             $mytoken = Security::hash(Security::randomBytes(25));
+            // pr($mytoken);
+
+
+             $user = $this->Users->find('all')->where(['username'=>$myemail])->firstOrFail();
+             
+             $user->token = $mytoken;
+
+             if($this->Users->save($user)){
+                $this->Flash->success('Link has been sent to '.$myemail.' ');
+                    
+                $mailer = new Mailer('default');
+                $mailer = $mailer
+                        ->setProfile('default')
+                        ->setEmailFormat('html')
+                        ->setFrom(['shivshankarkumar.pusa@gmail.com' => 'Reset Password'])
+                        ->setTo($myemail)
+                        ->setSubject('Please confirm your password')
+                        ->deliver('Hello '.$myemail.'<br> Please Click the link belowto  reset your password <br><br><a href="http://localhost:8080/users/resetpassword/'.$mytoken.'">Reset Password</a>');
+
+
+                 }
+            }
+
+
+        }
+
+        public function resetpassword($token){
+            
+            $this->Authorization->skipAuthorization();
+               
+                 if($this->request->is('post')){
+                    $hasher = new DefaultPasswordHasher();
+                    $mypass = $hasher->hash($this->request->getData('password'));
+                    $user = $this->Users->find('all')->where(['token'=>$token])->firstOrFail();
+                    $user->password = $mypass;
+
+                    echo $user->password;die("password");
+                    $user->token = ' ';
+
+                    if($this->Users->save($user)){
+
+
+
+                        $this->Flash->success('Password Updated Successfully');
+
+                        $this->redirect(['action'=>'login']);
+                    }else {
+                        
+                    echo '<script> alert("The token has expired"); </script>';
+
+                    }
+
+
+                 }
+    
 
     }
 }

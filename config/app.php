@@ -206,26 +206,20 @@ return [
      
 
     'EmailTransport' => [
-        'default' => [
-            'className' => MailTransport::class,
-            /*
-             * The keys host, port, timeout, username, password, client and tls
-             * are used in SMTP transports
-             */
-            'host' => 'default',
-            'port' => 25,
-            'timeout' => 30,
-            /*
-             * It is recommended to set these options through your environment or app_local.php
-             */
-            //'username' => null,
-            //'password' => null,
-            'client' => null,
-            'tls' => false,
-            
-        ],
+    // Sample Mail configuration
+    'default' => [
+        'className' => 'Mail',
     ],
-
+    // Sample SMTP configuration
+    'gmail' => [
+        'host' => 'smtp.gmail.com',
+        'port' => 587,
+        'username' => 'shivshankar.zapbuild@gmail.com',
+        'password' => 'Welcome@shiv',
+        'className' => 'Smtp',
+        'tls' => true
+    ]
+],
     /*
      * Email delivery profiles
      *
@@ -238,18 +232,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'shivshankarkumar.pusa@gmail.com',
-            'host' => 'smtp.gmail.com',
-            'port' => 587,
-            'username' => 'shivshanarkumar.pusa@gmail.com',
-            'password' => '-shiv',
-            'className' => 'Smtp',
-            'tls' => true
-                
-            
-            /*
-             * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
-             */
+            'from' => 'you@localhost',
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
         ],

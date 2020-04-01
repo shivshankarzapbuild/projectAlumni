@@ -14,6 +14,10 @@
 
 			parent::initialize();
 			$this->loadModel('Users');
+			$this->loadModel('Posts');
+			$this->loadModel('Comments');
+			$this->loadModel('DeletedMessages');
+			$this->loadModel('DeletedConversations');
 
 			// die("Admins Controller ----------->");
 		
@@ -35,10 +39,46 @@
 
         $this->set(compact('users'));
 		}
+		
 		public function users(){
 
 			$this->viewBuilder()->setLayout('Admin');
+			$users = $this->paginate($this->Users);
 
+			$this->set(compact('users'));
+
+
+		}
+		public function post(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+			$posts = $this->paginate($this->Posts);
+			$this->set(compact('posts'));
+
+		}
+		public function comments(){
+			$this->viewBuilder()->setLayout('Admin');
+
+			$comments = $this->paginate($this->Comments);
+			$this->set(compact('comments'));
+
+		}
+		public function deletedmessages(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+			$deletedmessages = $this->paginate($this->DeletedMessages);
+			$this->set(compact('deletedmessages'));
+
+		}
+
+		public function deletedconversations(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+			$deletedconversations = $this->paginate($this->DeletedConversations);
+			$this->set(compact('deletedconversations'));
 
 		}
 

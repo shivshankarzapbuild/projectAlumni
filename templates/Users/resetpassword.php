@@ -10,7 +10,7 @@
 
 				<div class="form-group">
 
-					<?php echo $this->Form->control('password',['type'=>'text','class'=>'form-control','required' => true])?>
+					<?php echo $this->Form->control('password',['type'=>'password','class'=>'form-control','required' => true])?>
 					
 				</div>
 

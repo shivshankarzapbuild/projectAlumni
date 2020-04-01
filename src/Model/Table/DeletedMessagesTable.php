@@ -12,7 +12,7 @@
 
 			parent::initialize($config);
 
-			$this->table('deletedMessages');
+			$this->setTable('deletedmessages');
 			$this->setPrimaryKey('id');
 
 			$this->belongsTo('messages',[
@@ -28,10 +28,10 @@
 			return $validator;
 		}
 
-		public function buildRules(RulesChecker $rules) :RulesChecker {
+		// public function buildRules(RulesChecker $rules) : RulesChecker {
 
-			$rules->add($rules->existsIn(['message_id'],'Messages'));
+		// 	$rules->add($rules->existsIn(['message_id'],'Messages'));
 
-		}
+		// }
 	} 
  ?>

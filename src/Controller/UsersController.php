@@ -5,7 +5,8 @@ namespace App\Controller;
 
 use Cake\Utility\Security;
 use Cake\Mailer\Mailer;
-
+use Cake\Mailer\Email;
+use Cake\Mailer\TransportFactory;
 use Authentication\PasswordHasher\DefaultPasswordHasher; 
 
 
@@ -314,30 +315,23 @@ public function profile(){
 
         if($this->request->is('post')){
 
-            $myemail = $this->request->getData('email');
-
-             // pr($myemail); 
-
-             $mytoken = Security::hash(Security::randomBytes(25));
-            // pr($mytoken);
-
-
-             $user = $this->Users->find('all')->where(['username'=>$myemail])->firstOrFail();
-             
+            $myemail = $this->request->getData('email'); 
+            $mytoken = Security::hash(Security::randomBytes(25));
+            $user = $this->Users->find('all')->where(['username'=>$myemail])->firstOrFail();
              $user->token = $mytoken;
 
              if($this->Users->save($user)){
-                $this->Flash->success('Link has been sent to '.$myemail.' ');
-                    
-                $mailer = new Mailer('default');
-                $mailer = $mailer
-                        ->setProfile('default')
-                        ->setEmailFormat('html')
-                        ->setFrom(['shivshankarkumar.pusa@gmail.com' => 'Reset Password'])
-                        ->setTo($myemail)
-                        ->setSubject('Please confirm your password')
-                        ->deliver('Hello '.$myemail.'<br> Please Click the link belowto  reset your password <br><br><a href="http://localhost:8080/users/resetpassword/'.$mytoken.'">Reset Password</a>');
+                
+                    $mailer=new Mailer('default');
 
+                    $mailer=$mailer->setTransport('gmail')
+                            ->setEmailFormat('both')
+                            ->setfrom(['shivshankarkumar.pusa@gmail.com'=>'Shivshankar '])
+                            ->setSubject('Please confirm your reset passwors')
+                            ->setTo($myemail);
+
+                    $mailer->deliver('Hello '.$myemail.'<br>Please click link below to reset your password<br><br><br><a href="http://localhost:8080/users/resetpassword/'.$mytoken.'">Reset Password</a>');
+                    $this->Flash->success('Link has been sent to '.$myemail.' ');
 
                  }
             }
@@ -345,35 +339,25 @@ public function profile(){
 
         }
 
-        public function resetpassword($token){
+            public function resetpassword($token){
             
             $this->Authorization->skipAuthorization();
-               
-                 if($this->request->is('post')){
-                    $hasher = new DefaultPasswordHasher();
-                    $mypass = $hasher->hash($this->request->getData('password'));
-                    $user = $this->Users->find('all')->where(['token'=>$token])->firstOrFail();
-                    $user->password = $mypass;
-
-                    echo $user->password;die("password");
-                    $user->token = ' ';
-
-                    if($this->Users->save($user)){
 
 
+            if($this->request->is('post')){
+                
+                $mypass = $this->request->getData('password');
+                $encryptedPassword = (new DefaultPasswordHasher())->hash($mypass);
 
-                        $this->Flash->success('Password Updated Successfully');
+                $user = $this->Users->find('all')->where(['token' => $token])->firstOrFail();
 
-                        $this->redirect(['action'=>'login']);
-                    }else {
-                        
-                    echo '<script> alert("The token has expired"); </script>';
+                pr($user);die("saffasd");                $user->password = $encryptedPassword;
 
-                    }
+                if($this->Users->save($user)){
 
+                    return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+                }
 
-                 }
-    
-
-    }
+                }
+            }
 }

@@ -18,6 +18,7 @@
 			$this->loadModel('Comments');
 			$this->loadModel('DeletedMessages');
 			$this->loadModel('DeletedConversations');
+			$this->loadModel('Reports');
 
 			// die("Admins Controller ----------->");
 		
@@ -53,8 +54,10 @@
 
 			$this->viewBuilder()->setLayout('Admin');
 
-			$posts = $this->paginate($this->Posts);
-			$this->set(compact('posts'));
+			$posts = $this->Posts->find('all', [
+            'contain' => ['Comments'],
+        ]);
+			$this->set(compact('posts','comments'));
 
 		}
 		public function comments(){
@@ -81,12 +84,21 @@
 			$this->set(compact('deletedconversations'));
 
 		}
-
-		public function add(){
-			 $users = $this->paginate($this->Users);
+		public function reports(){
 
 			$this->viewBuilder()->setLayout('Admin');
+			$reports = $this->paginate($this->Reports);
+			$this->set(compact('reports'));
 
+
+		}
+
+		public function view($id){
+
+
+		}
+
+		public function delete($id){
 
 
 		}

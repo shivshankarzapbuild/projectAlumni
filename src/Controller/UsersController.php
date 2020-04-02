@@ -157,7 +157,7 @@ class UsersController extends AppController
                 
                 $result = $this->Authentication->getResult();
                 // regardless of POST or GET, redirect if user is logged in
-         if ($result->isValid()) {
+                 if ($result->isValid()) {
 
                     // variable for dynamic menu
                     $_SESSION['user']='login';
@@ -182,7 +182,7 @@ class UsersController extends AppController
                 // display error if user submitted and authentication failed
                 if ($this->request->is('post') && !$result->isValid()) 
                 {
-                    $this->Flash->success(__('Invalid username or password'));
+                    $this->Flash->error(__('Invalid username or password'));
                 }
                 $this->set(compact('users'));
             }
@@ -319,6 +319,7 @@ public function profile(){
             $mytoken = Security::hash(Security::randomBytes(25));
             $user = $this->Users->find('all')->where(['username'=>$myemail])->firstOrFail();
              $user->token = $mytoken;
+             $user->password = " ";
 
              if($this->Users->save($user)){
                 
@@ -351,7 +352,7 @@ public function profile(){
 
                 $user = $this->Users->find('all')->where(['token' => $token])->firstOrFail();
 
-                pr($user);die("saffasd");                $user->password = $encryptedPassword;
+                $user->password = $encryptedPassword;
 
                 if($this->Users->save($user)){
 

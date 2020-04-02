@@ -15,16 +15,16 @@
                         <a href="/admin/users">Users</a>
                     </li>
                     <li>
-                        <a href="/admin/post">Posts</a>
+                        <a href="/admin/posts">Posts</a>
                     </li>
                     <li>
-                        <a href="/admin/comment">Comments</a>
+                        <a href="/admin/comments">Comments</a>
                     </li>
                     <li>
                         <a href="/admin/deletedmessages">DeletedMessages</a>
                     </li>
                     <li>
-                        <a href="/admin/deletedconversation">DeletedConversations</a>
+                        <a href="/admin/deletedconversations">DeletedConversations</a>
                     </li>
                         
                     </ul>
@@ -46,7 +46,7 @@
                 
                 <li>
 
-                    <a href="#"> Reports</a>
+                    <a href="/admin/reports"> Reports</a>
                 </li>
                 <li>
                     <a href="#">Portfolio</a>
@@ -117,17 +117,22 @@
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 <?php foreach ($posts as $post): ?>
-                <tr>
+
+                    <?php pr($post->comments[comments]); die("----------->>>"); ?>
+                 <tr>
                     <td><?= $this->Number->format($post->id) ?></td>
-                    <td><?= h($post->user_id) ?></td>
+
+                    <td><?= $post->has('comments') ? $this->Html->link($post->comments[$comments], ['controller' => 'Admins', 'action' => 'view', $post->comments[$id]]) : '' ?></td>
                     <td><?= h($post->post) ?></td>
                     <td><?= h($post->image) ?></td>
                     <td><?= h(date_format($post->created,'M d Y')) ?></td>
                     <td><?= h(date_format($post->created,'M d Y')) ?></td>
 
-                    <td><?= $post->has('comments') ? $this->Html->link($post->comment->comment, ['controller' => 'Comments', 'action' => 'view', $user->posts->id]) : '' ?></td>
+                    <td><?= $post->has('comments') ? $this->Html->link($post->comments[$comment], ['controller' => 'Admins', 'action' => 'view', $post->comments[$id]]) : '' ?></td>
+
+                    
 
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $post->id]) ?>

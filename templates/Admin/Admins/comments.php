@@ -15,16 +15,16 @@
                         <a href="/admin/users">Users</a>
                     </li>
                     <li>
-                        <a href="/admin/comment">comments</a>
+                        <a href="/admin/posts">posts</a>
                     </li>
                     <li>
-                        <a href="/admin/comment">Comments</a>
+                        <a href="/admin/comments">Comments</a>
                     </li>
                     <li>
                         <a href="/admin/deletedmessages">DeletedMessages</a>
                     </li>
                     <li>
-                        <a href="/admin/deletedconversation">DeletedConversations</a>
+                        <a href="/admin/deletedconversations">DeletedConversations</a>
                     </li>
                         
                     </ul>
@@ -46,7 +46,7 @@
                 
                 <li>
 
-                    <a href="#"> Reports</a>
+                    <a href="/admin/reports"> Reports</a>
                 </li>
                 <li>
                     <a href="#">Portfolio</a>
@@ -124,8 +124,6 @@
                     <td><?= h($comment->comments) ?></td>
                     <td><?= h(date_format($comment->created,'M d Y')) ?></td>
                     <td><?= h(date_format($comment->created,'M d Y')) ?></td>
-
-                    <td><?= $comment->has('comments') ? $this->Html->link($comment->comment->comment, ['controller' => 'Comments', 'action' => 'view', $user->comments->id]) : '' ?></td>
 
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $comment->id]) ?>

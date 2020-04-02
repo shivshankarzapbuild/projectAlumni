@@ -14,16 +14,16 @@
                             <a href="/admin/users">Users</a>
                         </li>
                         <li>
-                            <a href="/admin/post">Posts</a>
+                            <a href="/admin/posts">Posts</a>
                         </li>
                         <li>
-                            <a href="/admin/comment">Comments</a>
+                            <a href="/admin/comments">Comments</a>
                         </li>
                         <li>
                             <a href="/admin/deletedmessages">DeletedMessages</a>
                         </li>
                         <li>
-                            <a href="/admin/deletedconversation">DeletedConversations</a>
+                            <a href="/admin/deletedconversations">DeletedConversations</a>
                         </li>
                     </ul>
                 </li>
@@ -41,8 +41,8 @@
                             <a href="#">Page 3</a>
                         </li>
                     </ul>
-
-                    <a href="#"> Reports</a>
+                <li>
+                    <a href="/admin/reports"> Reports</a>
                 </li>
                 <li>
                     <a href="#">Portfolio</a>

@@ -15,7 +15,7 @@
                             <a href="/admin/users">Users</a>
                         </li>
                         <li>
-                            <a href="/admin/post">Posts</a>
+                            <a href="/admin/posts">Posts</a>
                         </li>
                         <li>
                             <a href="/admin/comments">Comments</a>
@@ -44,8 +44,8 @@
                         </li>
                     </ul>
                  
-
-                    <a href="#"> Reports</a>
+                <li>
+                    <a href="/admin/reports"> Reports</a>
                 </li>
                 <li>
                     <a href="#">Portfolio</a>

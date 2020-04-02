@@ -93,11 +93,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $routes->connect('/*', ['controller' => 'error', 'action' => 'error']);
 
     $routes->connect('/users', ['controller' => 'Admins', 'action' => 'users']);
-    $routes->connect('/post', ['controller' => 'Admins', 'action' => 'post']);
+    $routes->connect('/posts', ['controller' => 'Admins', 'action' => 'post']);
     $routes->connect('/comments', ['controller' => 'Admins', 'action' => 'comments']);
     $routes->connect('/deletedmessages', ['controller' => 'Admins', 'action' => 'deletedmessages']);
     $routes->connect('/deletedconversations', ['controller' => 'Admins', 'action' => 'deletedconversations']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $routes->connect('/reports', ['controller' => 'Admins', 'action' => 'reports']);
     $routes->fallbacks(DashedRoute::class);
     });
     /*

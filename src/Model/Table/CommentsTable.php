@@ -9,18 +9,18 @@
 
 	class CommentsTable extends Table{
 
-			public function initialize(array $config) :void {
+				public function initialize(array $config) :void {
 
-				parent::initialize($config);
-				$this->setTable('comments');
-				$this->setPrimaryKey('id');
+					parent::initialize($config);
+					$this->setTable('comments');
+					$this->setPrimaryKey('id');
 
-				$this->belongsTo('posts',[
+					$this->belongsTo('posts',[
 
-					'foreignKey' => 'post_id',
-					'joinType' => 'INNER'
-				]);
-			}
+						'foreignKey' => 'post_id',
+						'joinType' => 'INNER'
+					]);
+				}
 	// public function validationDefault(Validator $validator) :Validator{
 
 					

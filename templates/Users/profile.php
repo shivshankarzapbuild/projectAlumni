@@ -65,6 +65,8 @@
   </div>
     <div class="col-sm-8" style="margin-top: 50px;">
 
+      <?= $this->Html->link(__('Add Post'),['controller' => 'Posts' , 'action' => 'add'] )?>
+
         
 
                 <center> 

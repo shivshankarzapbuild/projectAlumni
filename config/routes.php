@@ -72,7 +72,9 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/users/admin', ['controller' => 'Users', 'action' => 'admin']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
     $builder->connect('/posts/logout', ['controller' => 'Users', 'action' => 'logout']);
-    $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
+    $builder->connect('/users/resetpassword', ['controller' => 'Users', 'action' => 'resetpassword']);
+    $builder->connect('/users/forgotpassword', ['controller' => 'Users', 'action' => 'forgotpassword']);
+    // $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
 
     // $builder->connect('/admin', ['prefix' => 'Admin','controller' => 'Admins', 'action' => 'index']);
     // $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);
@@ -91,7 +93,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $routes->connect('/*', ['controller' => 'error', 'action' => 'error']);
 
     $routes->connect('/users', ['controller' => 'Admins', 'action' => 'users']);
+    $routes->connect('/posts', ['controller' => 'Admins', 'action' => 'post']);
+    $routes->connect('/comments', ['controller' => 'Admins', 'action' => 'comments']);
+    $routes->connect('/deletedmessages', ['controller' => 'Admins', 'action' => 'deletedmessages']);
+    $routes->connect('/deletedconversations', ['controller' => 'Admins', 'action' => 'deletedconversations']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $routes->connect('/reports', ['controller' => 'Admins', 'action' => 'reports']);
     $routes->fallbacks(DashedRoute::class);
     });
     /*

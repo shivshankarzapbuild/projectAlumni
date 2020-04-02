@@ -3,6 +3,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Utility\Security;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\Email;
+use Cake\Mailer\TransportFactory;
+use Authentication\PasswordHasher\DefaultPasswordHasher; 
+
+
 
 class UsersController extends AppController
 {
@@ -30,16 +37,32 @@ class UsersController extends AppController
     public function home(){
 
             // $this->Authentication->getResult();
-            $users = $this->Authentication->getIdentity();
+            $user = $this->Authentication->getIdentity();
+
+            $users = $this->Users->get($user->id, [
+            'contain' => ['posts'],
+            ]);
+
+            $posts = $this->Users->Posts->find('list',['limit'=>200]);
+
+            
+
+
+            // die(" users identity------------>>");
+            // $this->
+            $this->loadModel('Posts');
 
 			$this->set('title','Homepage');
 			$this->viewBuilder()->setLayout('HomeLayout');
 
+
+
             $user = $this->Users->findById($users->id)->firstOrFail();
+            $posts = $this->paginate($this->Posts);
 
             $this->Authorization->authorize($user);
 
-            $this->set(compact('users'));	
+            $this->set(compact('users','posts'));	
 		}
 
 
@@ -62,7 +85,7 @@ class UsersController extends AppController
             // Configure the login action to not require authentication, preventing
             // the infinite redirect loop issue
             $this->Authentication->addUnauthenticatedActions(['login']);
-            $this->Authentication->addUnauthenticatedActions(['login', 'registration','index']);
+            $this->Authentication->addUnauthenticatedActions(['login', 'registration','index','resetpassword','forgotpassword']);
         }
 
 
@@ -134,7 +157,7 @@ class UsersController extends AppController
                 
                 $result = $this->Authentication->getResult();
                 // regardless of POST or GET, redirect if user is logged in
-         if ($result->isValid()) {
+                 if ($result->isValid()) {
 
                     // variable for dynamic menu
                     $_SESSION['user']='login';
@@ -211,7 +234,8 @@ public function profile(){
         $post = $this->Users->get($user->id);
 
     if($this->request->is(['patch', 'post', 'put'])){
-        if(!empty($this->request->getData('image'))){
+
+             if(!empty($this->request->getData('image'))){
                      
                 $file =  $this->request->getData('image')->getClientFilename('image');
                 $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
@@ -280,4 +304,61 @@ public function profile(){
         $this->Authorization->authorize($user);
 
     }
+
+
+    
+
+    public function forgotpassword(){
+
+        $this->Authorization->skipAuthorization();
+        $this->viewBuilder()->setLayout('resetpassword');
+
+        if($this->request->is('post')){
+
+            $myemail = $this->request->getData('email'); 
+            $mytoken = Security::hash(Security::randomBytes(25));
+            $user = $this->Users->find('all')->where(['username'=>$myemail])->firstOrFail();
+             $user->token = $mytoken;
+             $user->password = " ";
+
+             if($this->Users->save($user)){
+                
+                    $mailer=new Mailer('default');
+
+                    $mailer=$mailer->setTransport('gmail')
+                            ->setEmailFormat('both')
+                            ->setfrom(['shivshankarkumar.pusa@gmail.com'=>'Shivshankar '])
+                            ->setSubject('Please confirm your reset passwors')
+                            ->setTo($myemail);
+
+                    $mailer->deliver('Hello '.$myemail.'<br>Please click link below to reset your password<br><br><br><a href="http://localhost:8080/users/resetpassword/'.$mytoken.'">Reset Password</a>');
+                    $this->Flash->success('Link has been sent to '.$myemail.' ');
+
+                 }
+            }
+
+
+        }
+
+            public function resetpassword($token){
+            
+            $this->Authorization->skipAuthorization();
+
+
+            if($this->request->is('post')){
+                
+                $mypass = $this->request->getData('password');
+                $encryptedPassword = (new DefaultPasswordHasher())->hash($mypass);
+
+                $user = $this->Users->find('all')->where(['token' => $token])->firstOrFail();
+
+                $user->password = $encryptedPassword;
+
+                if($this->Users->save($user)){
+
+                    return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+                }
+
+                }
+            }
 }

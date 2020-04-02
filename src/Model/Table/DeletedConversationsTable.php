@@ -12,7 +12,7 @@
 
 				parent::initialize($config);
 
-				$this->table('deletedConversations');
+				$this->setTable('deletedconversations');
 				$this->setPrimaryKey('id');
 
 				$this->belongsTo('conversations',[

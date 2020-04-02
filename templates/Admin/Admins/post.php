@@ -10,18 +10,23 @@
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="/admins/posts">Posts</a>
-                        </li>
-                        <li>
-                            <a href="#">Comments</a>
-                        </li>
-                        <li>
-                            <a href="#">DeletedMessages</a>
-                        </li>
-                        <li>
-                            <a href="#">DeletedConversations</a>
-                        </li>
+
+                    <li>
+                        <a href="/admin/users">Users</a>
+                    </li>
+                    <li>
+                        <a href="/admin/posts">Posts</a>
+                    </li>
+                    <li>
+                        <a href="/admin/comments">Comments</a>
+                    </li>
+                    <li>
+                        <a href="/admin/deletedmessages">DeletedMessages</a>
+                    </li>
+                    <li>
+                        <a href="/admin/deletedconversations">DeletedConversations</a>
+                    </li>
+                        
                     </ul>
                 </li>
                 <li>
@@ -38,8 +43,10 @@
                             <a href="#">Page 3</a>
                         </li>
                     </ul>
+                
+                <li>
 
-                    <a href="#"> Reports</a>
+                    <a href="/admin/reports"> Reports</a>
                 </li>
                 <li>
                     <a href="#">Portfolio</a>
@@ -50,8 +57,8 @@
             </ul>
 
             <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="/admins/logout" class="article">lOGOUT</a>
+              <li>
+                    <a href="/users/logout" class="article">lOGOUT</a>
                 </li>
             </ul>
         </nav>
@@ -89,14 +96,54 @@
                     </div>
                 </div>
             </nav>
-            
-            <h2>Users</h2>
-            <p>Justa the Paragraph</p>
            
             <div class="line"></div>
 
-            <h2>Messages</h2>
-            <p>Just The Paragraph</p>
+            <h2>POSTS</h2>
+            <p><h3><?= __('Posts') ?></h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th><?= $this->Paginator->sort('id') ?></th>
+                    <th><?= $this->Paginator->sort('user_id') ?></th>
+                    <th><?= $this->Paginator->sort('post') ?></th>
+                    <th><?= $this->Paginator->sort('image') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    
+
+                    
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody> 
+                <?php foreach ($posts as $post): ?>
+
+                    <?php pr($post->comments[comments]); die("----------->>>"); ?>
+                 <tr>
+                    <td><?= $this->Number->format($post->id) ?></td>
+
+                    <td><?= $post->has('comments') ? $this->Html->link($post->comments[$comments], ['controller' => 'Admins', 'action' => 'view', $post->comments[$id]]) : '' ?></td>
+                    <td><?= h($post->post) ?></td>
+                    <td><?= h($post->image) ?></td>
+                    <td><?= h(date_format($post->created,'M d Y')) ?></td>
+                    <td><?= h(date_format($post->created,'M d Y')) ?></td>
+
+                    <td><?= $post->has('comments') ? $this->Html->link($post->comments[$comment], ['controller' => 'Admins', 'action' => 'view', $post->comments[$id]]) : '' ?></td>
+
+                    
+
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $post->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $post->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id)]) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div></p>
 
             <div class="line"></div>
 

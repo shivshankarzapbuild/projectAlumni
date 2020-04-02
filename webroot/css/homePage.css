@@ -15,3 +15,19 @@
 
 	color: red;
 }
+.header{
+
+	text-align: left;
+}
+
+.articleClass{
+	
+	margin-top: 50px;
+	width: 600px;
+	height: 500px;
+	border: 1px solid black;
+}
+.image_card{
+
+	object-fit: cover;
+}

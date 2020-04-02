@@ -13,41 +13,51 @@
 
               <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <?= $this->Html->link(__('Home'),['action' => 'home','class' => 'nav-link']) ?>
+                <?= $this->Html->link(__('Home'),['controller' => 'Users','action' => 'home','class' => 'nav-link']) ?>
                       
                     </a>
               </li>
               <li class="nav-item active">
-                <?= $this->Html->link(__('Profile'),['action' => 'profile','class' => 'nav-link']) ?>
+                <?= $this->Html->link(__('Profile'),['controller' => 'Users','action' => 'profile','class' => 'nav-link']) ?>
                 <span class="sr-only">(current)</span>
               </li>
               <li class="nav-item">
-                <?= $this->Html->link(__('Chats'),['action' => 'chat','class' => 'nav-link']) ?>
+                <?= $this->Html->link(__('Chats'),['controller' => 'Users','action' => 'chat','class' => 'nav-link']) ?>
               </li>
                <li class="nav-item">
-              <?= $this->Html->link(__('Help'),['action' => 'help','class' => 'nav-link']) ?>
+              <?= $this->Html->link(__('Help'),['controller' => 'Users','action' => 'help','class' => 'nav-link']) ?>
                </li>
               </ul>
               <li class="nav-item">
-                <?= $this->Html->link(__('Logout'),['action' => 'logout','class' => 'nav-link']) ?>
+                <?= $this->Html->link(__('Logout'),['controller' => 'Users','action' => 'logout','class' => 'nav-link']) ?>
               </li>
        
           </div>
     </div>
 </nav>
+		<div class="row">
+		<div class="col-sm-2"></div>
 
-<button class="open-button" onclick="openForm()">Open Form</button>
 
-<div class="form-popup" id="myForm">
-                  <?= $this->Form->create($posts,['enctype'=>'multipart/form-data','class' => 'form-container','action'=>'/posts/add']) ?>
+		<!-- <?php ?> -->
+				<div class="col-sm-8" style="margin-top: 50px;background-color: lavenderblush">
+
+                  <?= $this->Form->create($post,['enctype'=>'multipart/form-data','class' => 'form-container']) ?>
                     
-                  <?= $this->Form->control('text',['type'=>'textarea','id'=>'input','placeholder'=>'Write Something','class'=>'form-control'])?>
+                  <?= $this->Form->control('post',['type'=>'textarea','placeholder'=>'Write Something','class'=>'form-control'])?>
                    
 
                     <br><br>
                     <?= $this->Form->control('image',['type'=>'file'])?>
-                    <?= $this->Form->control('Post',['type'=>'submit','class'=>'btn'])?>
-                    <?= $this->Form->control('Close',['class'=>'btn cancel','onclick'=>'closeForm()'])?>
+
+                    <?= $this->Form->control('Upload',['type'=>'submit','class'=>'btn'])?>
+
+                    <?= $this->Form->control('Cancel',['type' => 'button','class'=>'btn cancel'])?>
                  
                   <?= $this->Form->end() ?>
-</div>
+                 </div>
+
+
+           <div class="col-sm-2"></div>
+
+        </div>

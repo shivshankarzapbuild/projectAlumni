@@ -48,6 +48,7 @@
 
 				    <?= $this->Form->button('Login',['class' => 'form-control btn btn-success mt-3'])?>
 
+				    <?= $this->Html->link('Forgot Password ??',['controller' => 'Users','action'=>'forgotpassword']) ?>
 
 				    <?= $this->Form->end() ?>
 

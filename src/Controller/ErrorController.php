@@ -68,5 +68,10 @@ class ErrorController extends AppController
     {
     }
 
+    public function error(){
+
+        $this->viewBuilder()->setLayout('error');
+    }
+
     
 }

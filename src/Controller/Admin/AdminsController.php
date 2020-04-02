@@ -14,6 +14,11 @@
 
 			parent::initialize();
 			$this->loadModel('Users');
+			$this->loadModel('Posts');
+			$this->loadModel('Comments');
+			$this->loadModel('DeletedMessages');
+			$this->loadModel('DeletedConversations');
+			$this->loadModel('Reports');
 
 			// die("Admins Controller ----------->");
 		
@@ -35,18 +40,65 @@
 
         $this->set(compact('users'));
 		}
+		
 		public function users(){
 
 			$this->viewBuilder()->setLayout('Admin');
+			$users = $this->paginate($this->Users);
+
+			$this->set(compact('users'));
+
+
+		}
+		public function post(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+			$posts = $this->Posts->find('all', [
+            'contain' => ['Comments'],
+        ]);
+			$this->set(compact('posts','comments'));
+
+		}
+		public function comments(){
+			$this->viewBuilder()->setLayout('Admin');
+
+			$comments = $this->paginate($this->Comments);
+			$this->set(compact('comments'));
+
+		}
+		public function deletedmessages(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+			$deletedmessages = $this->paginate($this->DeletedMessages);
+			$this->set(compact('deletedmessages'));
+
+		}
+
+		public function deletedconversations(){
+
+			$this->viewBuilder()->setLayout('Admin');
+
+			$deletedconversations = $this->paginate($this->DeletedConversations);
+			$this->set(compact('deletedconversations'));
+
+		}
+		public function reports(){
+
+			$this->viewBuilder()->setLayout('Admin');
+			$reports = $this->paginate($this->Reports);
+			$this->set(compact('reports'));
 
 
 		}
 
-		public function add(){
-			 $users = $this->paginate($this->Users);
+		public function view($id){
 
-			$this->viewBuilder()->setLayout('Admin');
 
+		}
+
+		public function delete($id){
 
 
 		}

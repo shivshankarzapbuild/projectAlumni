@@ -100,7 +100,7 @@
         <div class="posts" style=" margin-top: 30px;">
 
 
-                  <h2 style="position: fixed;"> <?= h($user->middle_name.' ' .$user->last_name)?></h2>
+                  <h2 style="position: fixed;"> <?= h($user->first_name.' ' .$user->last_name)?></h2>
 
         </div>
 

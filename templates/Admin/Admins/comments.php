@@ -99,14 +99,14 @@
            
             <div class="line"></div>
 
-            <h2>commentS</h2>
-            <p><h3><?= __('comments') ?></h3>
+        
+            <p><h3><?= __('Comments') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr style="padding: 5px;">
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('post id') ?></th>
+                    <th><?= $this->Paginator->sort('post') ?></th>
                     <th><?= $this->Paginator->sort('comments') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
@@ -120,7 +120,9 @@
                 <?php foreach ($comments as $comment): ?>
                 <tr>
                     <td><?= $this->Number->format($comment->id) ?></td>
-                    <td><?= h($comment->post_id) ?></td>
+
+
+                    <td><?= h($comment->has('posts') ? $comment->posts['id']  : ' ') ?></td>
                     <td><?= h($comment->comments) ?></td>
                     <td><?= h(date_format($comment->created,'M d Y')) ?></td>
                     <td><?= h(date_format($comment->created,'M d Y')) ?></td>

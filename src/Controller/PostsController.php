@@ -32,7 +32,7 @@
 
 					// die(" Not EMpty Image");
 
-					$file =  $this->request->getData('image')->getClientFilename('image');
+				$file =  $this->request->getData('image')->getClientFilename('image');
 
 
                 $file_name = date("dmYHis").preg_replace('/\s/', '', $file);

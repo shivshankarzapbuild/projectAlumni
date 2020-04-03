@@ -94,8 +94,8 @@
     </nav>
     
     <h2>Users</h2>
-    <p><h3><?= __('Users') ?></h3>
-<div class="table-responsive">
+    
+    <div class="table-responsive">
 <table>
     <thead>
         <tr>

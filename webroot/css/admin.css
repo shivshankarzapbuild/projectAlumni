@@ -141,6 +141,14 @@ a.article, a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
+th{
+    
+    padding: 10px 10px 10px 10px ;
+}
+td{
+
+    padding: 10px 10px 10px 10px ;
+}
 
 
 
@@ -168,7 +176,7 @@ a.article, a.article:hover {
     display: block;
     background: #555;
     transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
-    transition-delay: 0.2s;
+    transition-delay: 0.5s;
 }
 
 #sidebarCollapse span:first-of-type {

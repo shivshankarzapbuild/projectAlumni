@@ -51,7 +51,7 @@
 
     <ul class="list-unstyled CTAs">
        <li>
-            <a href="/reports/logout" class="article">lOGOUT</a>
+            <a href="/users/logout" class="article">lOGOUT</a>
         </li>
     </ul>
 </nav>

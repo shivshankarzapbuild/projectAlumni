@@ -10,6 +10,8 @@
 
 
 	font-size: 30px;
+	width: 100%;
+	height: 100%;
 }
 .nav-link{
 
@@ -23,11 +25,41 @@
 .articleClass{
 	
 	margin-top: 50px;
-	width: 600px;
-	height: 500px;
+	width: 80%;
+	height: 50%;
+	position: relative;
+	box-sizing: border-box;
+	overflow: auto;
 	border: 1px solid black;
+
+	
 }
-.image_card{
+
+.commentSummary{
+
+	position: absolute;
+}
+.col-sm-1{
+
+	width: 100%;
+	height: 100%;
+
+}
+.col-sm-10{
+
+
+	width: 100%;
+	height: 100%;
+}
+.comment-inside{
+
+	position: fixed;
+}
+.image_field{
 
 	object-fit: cover;
+}
+.card_image{
+
+	margin-top: 10px;
 }

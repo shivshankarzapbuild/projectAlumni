@@ -20,6 +20,7 @@ class UsersController extends AppController
         parent::initialize();
 
         $this->loadComponent('Flash');
+        $this->loadModel('Posts');
 
     }
     public function index()
@@ -40,17 +41,10 @@ class UsersController extends AppController
             $user = $this->Authentication->getIdentity();
 
             $users = $this->Users->get($user->id, [
-            'contain' => ['posts'],
+            'contain' => ['Posts'],
             ]);
 
-            $posts = $this->Users->Posts->find('list',['limit'=>200]);
-
-            
-
-
-            // die(" users identity------------>>");
-            // $this->
-            $this->loadModel('Posts');
+            // $posts = $this->Posts->find('list',['limit'=>200]);
 
 			$this->set('title','Homepage');
 			$this->viewBuilder()->setLayout('HomeLayout');
@@ -58,7 +52,10 @@ class UsersController extends AppController
 
 
             $user = $this->Users->findById($users->id)->firstOrFail();
-            $posts = $this->paginate($this->Posts);
+            $posts = $this->Posts->find('all',[
+            
+                'contain' => ['Users','Comments']
+            ]);
 
             $this->Authorization->authorize($user);
 

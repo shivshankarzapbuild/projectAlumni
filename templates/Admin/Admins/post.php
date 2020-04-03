@@ -119,21 +119,15 @@
             </thead>
             <tbody> 
                 <?php foreach ($posts as $post): ?>
-
-                    <?php pr($post->comments[comments]); die("----------->>>"); ?>
-                 <tr>
+                <tr>
                     <td><?= $this->Number->format($post->id) ?></td>
 
-                    <td><?= $post->has('comments') ? $this->Html->link($post->comments[$comments], ['controller' => 'Admins', 'action' => 'view', $post->comments[$id]]) : '' ?></td>
+                    <td><?= h( $post->has('users') ? $post->users['first_name']  : '') ?></td>
+
                     <td><?= h($post->post) ?></td>
                     <td><?= h($post->image) ?></td>
                     <td><?= h(date_format($post->created,'M d Y')) ?></td>
                     <td><?= h(date_format($post->created,'M d Y')) ?></td>
-
-                    <td><?= $post->has('comments') ? $this->Html->link($post->comments[$comment], ['controller' => 'Admins', 'action' => 'view', $post->comments[$id]]) : '' ?></td>
-
-                    
-
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $post->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $post->id]) ?>

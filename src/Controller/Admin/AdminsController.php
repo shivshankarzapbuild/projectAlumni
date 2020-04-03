@@ -54,16 +54,20 @@
 
 			$this->viewBuilder()->setLayout('Admin');
 
-			$posts = $this->Posts->find('all', [
-            'contain' => ['Comments'],
-        ]);
-			$this->set(compact('posts','comments'));
+			$posts = $this->Posts->find('all',[
+            
+                'contain' => ['Users','Comments']
+            ]);
+			$this->set(compact('posts'));
 
 		}
 		public function comments(){
 			$this->viewBuilder()->setLayout('Admin');
 
-			$comments = $this->paginate($this->Comments);
+			$comments = $this->Comments->find('all',[
+            
+                'contain' => ['Posts']
+            ]);
 			$this->set(compact('comments'));
 
 		}

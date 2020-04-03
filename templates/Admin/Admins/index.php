@@ -96,5 +96,10 @@
                 </div>
             </nav>
             
-           
+
+<div class="line">
+
+            <center><h2>Welcome To Admin's Dashboard</h2></center>
             
+           
+</div>            

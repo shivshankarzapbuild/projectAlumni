@@ -147,12 +147,10 @@ class UsersController extends AppController
 
         $this->Authorization->skipAuthorization();
         $this->viewBuilder()->setLayout('Login');
-                        $users = $this->paginate($this->Users); 
+        $users = $this->paginate($this->Users);
+            
+        $result = $this->Authentication->getResult();
 
-               
-                
-                
-                $result = $this->Authentication->getResult();
                 // regardless of POST or GET, redirect if user is logged in
                  if ($result->isValid()) {
 
@@ -247,7 +245,7 @@ public function profile(){
                  return $this->redirect(['action' => 'profile']);
             }
             
-            $this->Flash->error(__('The Profile Picture could not be saved. Please, try again.'));
+        $this->Flash->error(__('The Profile Picture could not be saved. Please, try again.'));
      }
    
 
@@ -279,20 +277,8 @@ public function profile(){
 
 }
 
-    public function callModal(){
 
-        $user = $this->Authorization->getIdentity();
-
-        $this->Authorization->authorize($user);
-
-        $this->viewBuilder()->setLayout('ajax');
-
-            if($this->request->is('ajax')){
-                    $user = $this->Users->newEmptyEntity();
-                    $this->set(compact('user'));
-                    // $this->set('_serialize', ['user']);
-            }
-    }
+   
 
     public function admin(){
 

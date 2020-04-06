@@ -64,17 +64,39 @@ $routes->scope('/', function (RouteBuilder $builder) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, templates/Pages/home.php)...
      */
+    
+
+    // Users Routes 
+
     $builder->connect('/', ['controller' => 'Users', 'action' => 'index']);
     $builder->connect('/users/home', ['controller' => 'Users', 'action' => 'home']);
     $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
     $builder->connect('/users/profile', ['controller' => 'Users', 'action' => 'profile']);
-    $builder->connect('/users/posts/add', ['controller' => 'Posts', 'action' => 'add']);
+    
     $builder->connect('/users/admin', ['controller' => 'Users', 'action' => 'admin']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
     $builder->connect('/posts/logout', ['controller' => 'Users', 'action' => 'logout']);
     $builder->connect('/users/resetpassword', ['controller' => 'Users', 'action' => 'resetpassword']);
     $builder->connect('/users/forgotpassword', ['controller' => 'Users', 'action' => 'forgotpassword']);
-    // $builder->connect('/users/*', ['controller' => 'error', 'action' => 'error']);
+
+
+    // Posts Routes 
+
+    $builder->connect('/users/posts/add', ['controller' => 'Posts', 'action' => 'add']);
+
+
+    // Comments Routes
+
+    $builder->connect('/users/comments/add', ['controller' => 'Comments', 'action' => 'add']);
+    $builder->connect('/users/comments/delete/*', ['controller' => 'Comments', 'action' => 'delete']);
+
+
+
+    // Reports Controller
+
+
+    $builder->connect('/users/reports/add', ['controller' => 'Reports', 'action' => 'add']);
+    $builder->connect('/users/reports/view/*', ['controller' => 'Reports', 'action' => 'view']);
 
     // $builder->connect('/admin', ['prefix' => 'Admin','controller' => 'Admins', 'action' => 'index']);
     // $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);

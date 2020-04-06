@@ -17,6 +17,19 @@ class ReportsController extends AppController
 
 		parent::initialize();
 		$this->loadComponent('Flash');
+		$this->loadModel('Users');
+	}
+
+	public function add(){
+
+		$user = $this->Authentication->getIdentity();
+
+		pr($user); die("Reports add ---------->>>");
+
+	}
+	public function view($id){
+
+		
 	}
 }
   

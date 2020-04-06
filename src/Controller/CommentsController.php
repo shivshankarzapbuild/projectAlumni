@@ -24,30 +24,45 @@ class CommentsController extends AppController
 
 	public function add(){
 
+		$userId = $this->Authentication->getIdentity();
+
+		pr($userId);
+
 
 
 	}
 
 	public function edit($id){
 
+		echo $id;
+
 
 	}
 
 	public function view($id){
+
+		echo $id;
 
 
 	}
 
 	public function delete($id){
 
+		// $this->request->allowMethod(['post', 'delete']);
+
+		 $comment = $this->Comments->findById($id)->firstOrFail();
 		$this->request->allowMethod(['post', 'delete']);
 
 		    $comment = $this->Comments->findById($id)->firstOrFail();
 
-		    if ($this->Students->delete($comment)) {
+		    if ($this->Comments->delete($comment)) {
 		        
-		        
+		         return $this->redirect(['controller' => 'Users','action' => 'home']);
+		    }
+		}
 
-	}
+		// pr($id);die("Id in the comments---------->>>>>");
+
+	
 }
   

@@ -64,3 +64,8 @@
 
 	margin-top: 10px;
 }
+
+details.form-control{
+
+	width: 80%;
+}

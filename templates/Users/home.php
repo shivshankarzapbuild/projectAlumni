@@ -56,13 +56,14 @@
           <footer>
             <details>
               <summary class="commentSummary">Comments</summary>
-              
+
+              <?= $this->Html->link(__('New Comment'),['controller'=>'Comments','action' => 'add', $post->id]) ?>
+
+
               <?php foreach ($post->comments as $comment) : ?>
                 <div class="comments-inside">
                   <br>
                      <?php echo $comment->comments; ?>
-
-                     <?= $this->Form->postLink(__('delete'), ['controller'=>'Comments','action' => 'delete', $comment->id], ['confirm' => __('Are you sure you want to delete the comment ')]) ?>
                   <br>  
 
                 </div>

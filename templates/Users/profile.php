@@ -82,15 +82,67 @@
                     <?= $this->form->control('image',['type'=>'file'])?>
                     <?= $this->form->control('Post',['type'=>'submit','class'=>'btn'])?>
                     <?= $this->form->control('Close',['class'=>'btn cancel','onclick'=>'closeForm()'])?>
+
+
                  
                   <?= $this->form->end() ?>
                 </div>
-              
+                </center>
+<center><h1>Posts</h1></center>
+ <?php  foreach ($posts as $post): ?>      
+      <center>
+      <div class="posts">
+      <article class="articleClass">
+        <header >
+          <div class="header" > 
+            
+            <h2> <?php echo $post->post; ?></h2>
+            <h6> <?= $this->Html->link($post->has('users') ? $post->users['first_name']: ' ',['controller'=>'Users','action'=>'profile']); echo " ". date('h:i A', strtotime($post->created)); ?></h6>
+          </div>
+        </header>
+         <div class="image_field"> 
+          </div>
+          <div class="card_image">
+            <div>
+              <?= $this->Html->image($post->image,['alt'=>'Note this','class'=>'image_card','width'=>'80%','height'=>'50%'])?>
+            </div>
+          </div>
+          <footer>
+            <details>
+              <summary class="commentSummary">Comments</summary>
+
+              <?= $this->Html->link(__('New Comment'),['controller'=>'Comments','action' => 'add', $post->id]) ?>
+
+
+              <?php foreach ($post->comments as $comment) : ?>
+                <div class="comments-inside">
+                  <br>
+                     <?php echo $comment->comments; ?>
+
+                     <?= $this->Html->link(__('edit'), ['controller'=>'Comments','action' => 'edit', $comment->id]) ?>
+
+                     <?= $this->Form->postLink(__('delete'), ['controller'=>'Comments','action' => 'delete', $comment->id], ['confirm' => __('Are you sure you want to delete the comment ')]) ?>
+
+                    
+                  <br>  
+
+                </div>
+                <?php endforeach; ?>
 
                 
-        
-                </center>
+                <?= $this->Form->create() ?>
 
+
+               
+              </details>
+          </footer>
+      </article>
+    </div>
+
+      </center>
+
+     
+    <?php endforeach; ?>
 
                 
            </div>

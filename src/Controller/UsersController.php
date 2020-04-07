@@ -21,6 +21,7 @@ class UsersController extends AppController
 
         $this->loadComponent('Flash');
         $this->loadModel('Posts');
+        $this->loadModel('Comments');
 
     }
     public function index()
@@ -57,9 +58,14 @@ class UsersController extends AppController
                 'contain' => ['Users','Comments']
             ]);
 
+            $comments = $this->Comments->find('all',[
+
+                'contain' => ['Posts']
+            ]);
+
             $this->Authorization->authorize($user);
 
-            $this->set(compact('users','posts'));	
+            $this->set(compact('users','posts','comments'));	
 		}
 
 
@@ -198,34 +204,16 @@ class UsersController extends AppController
 			}
 
 
-
-
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
-
-
-
 public function profile(){
 
        $users = $this->Authentication->getIdentity();
 
         $this->viewBuilder()->setLayout('Profile');
-        $this->set('title','Profile');
-        
+        $this->set('title','Profile');  
+
+    // TO UPDATE THE PROFILE PICTURE OF THE USER
         $user = $this->Users->findById($users->id)->firstOrFail();
-
         $this->Authorization->authorize($user);
-
         $post = $this->Users->get($user->id);
 
     if($this->request->is(['patch', 'post', 'put'])){
@@ -248,48 +236,16 @@ public function profile(){
         $this->Flash->error(__('The Profile Picture could not be saved. Please, try again.'));
      }
    
+    //  TO SHOW THE POSTS IN THE USERS PROFILE PAGE IT MUST BE THEIR OWN
 
-       
-
-    
-       //      if(!empty($this->request->getData('image'))){
-       //               $file =  $this->request->getData('image')->getClientFilename('image');
-       //              $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
-       //              $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
-       //             move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
-       //              $post = $this->Posts->patchEntity($post, $this->request->getData());
-                   
-       //              $post['image'] = $file_name;
-       //               }
-       //              if ($this->Posts->save($post)) {
-       //                  $this->Flash->success(__('The post has been saved.'));
-
-       //                  return $this->redirect(['action' => 'index']);
-       //      }
-       //      $this->Flash->error(__('The post could not be saved. Please, try again.'));
-        
-       //  }
+     $posts = $this->paginate($this->Posts->find('all',['contain'=>['Comments','Users']])->where(['user_id' => $user->id]));
+   
 
 
-
-       $this->set(compact('user'));
+       $this->set(compact(['user','posts']));
 
 
 }
-
-
-   
-
-    public function admin(){
-
-        $user = $this->Authorization->getIdentity();
-        debug($user);
-        $this->Authorization->authorize($user);
-
-    }
-
-
-    
 
     public function forgotpassword(){
 

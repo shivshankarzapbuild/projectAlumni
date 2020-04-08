@@ -1,40 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    
-    <div class="container">
-          <a href="" ><?= $this->Html->image('destination_1.jpg',['class'=>'navbar_picture']) ?> </a>
+<?= $this->element('header') ?>
 
-          <?= $this->Html->link(__('Alumni Network'),['action' => 'index','class' => 'navbar-brand']) ?>
-
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
-          
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-
-              <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <?= $this->Html->link(__('Home'),['action' => 'home','class' => 'nav-link']) ?>
-                      
-                    </a>
-              </li>
-              <li class="nav-item active">
-                <?= $this->Html->link(__('Profile'),['action' => 'profile','class' => 'nav-link']) ?>
-                <span class="sr-only">(current)</span>
-              </li>
-              <li class="nav-item">
-                <?= $this->Html->link(__('Chats'),['action' => 'chat','class' => 'nav-link']) ?>
-              </li>
-               <li class="nav-item">
-              <?= $this->Html->link(__('Help'),['action' => 'help','class' => 'nav-link']) ?>
-               </li>
-              </ul>
-              <li class="nav-item">
-                <?= $this->Html->link(__('Logout'),['action' => 'logout','class' => 'nav-link']) ?>
-              </li>
-       
-          </div>
-    </div>
-</nav>
 <div class="row">
   <div class="col-sm-2" style="background-color: lavender">
     
@@ -44,7 +9,7 @@
           
       <div class="profile_details">
 
-        <strong><a href="#" class=""> </strong>
+      <strong><a href="#" class=""> </strong>
       </div>
       <div class="image_upload">
 
@@ -60,6 +25,10 @@
                   </center>
         
       <?= $this->Form->end(); ?>
+      </div>
+
+      <div>
+        <?= $this->Html->link('justlink',['action'=>'home']) ?>
       </div>
 
   </div>

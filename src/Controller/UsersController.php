@@ -172,7 +172,9 @@ class UsersController extends AppController
                     }
                     else
                     {
-                        $redirect = $this->request->getQuery('redirect', [
+                        $users = $this->Authentication->getIdentity();
+                        $_SESSION['user_id'] = $users->id;
+                         $redirect = $this->request->getQuery('redirect', [
                         'controller' => 'Users',
                         'action' => 'home',
                         ]);
@@ -206,11 +208,10 @@ class UsersController extends AppController
 
 public function profile(){
 
-       $users = $this->Authentication->getIdentity();
-
         $this->viewBuilder()->setLayout('Profile');
-        $this->set('title','Profile');  
+        $this->set('title','Profile'); 
 
+        $users = $this->Authentication->getIdentity();
     // TO UPDATE THE PROFILE PICTURE OF THE USER
         $user = $this->Users->findById($users->id)->firstOrFail();
         $this->Authorization->authorize($user);

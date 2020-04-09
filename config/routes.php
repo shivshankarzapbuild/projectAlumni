@@ -98,6 +98,14 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/users/reports/add', ['controller' => 'Reports', 'action' => 'add']);
     $builder->connect('/users/reports/view/*', ['controller' => 'Reports', 'action' => 'view']);
 
+
+    // Messages routes
+
+        $builder->connect('/users/messages/chat/*', ['controller' => 'Messages', 'action' => 'chat']);
+        $builder->connect('/users/messages/view', ['controller' => 'Messages', 'action' => 'view']);
+        $builder->connect('/users/messages/add', ['controller' => 'Messages', 'action' => 'add']);
+
+
     // $builder->connect('/admin', ['prefix' => 'Admin','controller' => 'Admins', 'action' => 'index']);
     // $builder->connect('/admin/users', ['controller' => 'Admins', 'action' => 'users']);
 

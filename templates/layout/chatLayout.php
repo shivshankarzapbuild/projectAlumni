@@ -7,17 +7,22 @@
         
         <?= $this->fetch('title') ?>
     </title>
-    <?php echo $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'); ?>
-    <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'); ?>
+    <?=  $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'); ?>
+    <?=  $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'); ?>
+    <?=  $this->Html->script('https://code.jquery.com/ui/1.12.1/jquery-ui.js'); ?>
+    <?=  $this->Html->script('https://code.jquery.com/jquery-1.12.4.js'); ?>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('bootstrap.css'); ?>
     <?= $this->Html->css('bootstrap.min.css'); ?>
     <?= $this->Html->css('bootstrap-grid.css'); ?>
     <?= $this->Html->css('bootstrap-grid.min.css'); ?>
-    <?= $this->Html->css('homePage.css'); ?>
+    <?= $this->Html->css('chat.css'); ?>
+    <?= $this->Html->css('//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'); ?>
 
-    <?php echo $this->Html->script('login.js'); ?>
+    <?= $this->Html->script('chat.js'); ?>
+
+    
 
 
     <?= $this->fetch('meta') ?>
@@ -33,7 +38,9 @@
         
     </nav>
     <main class="main">
+
         <div class="container">
+
             <?= $this->Flash->render() ?>
 
             <?= $this->fetch('content') ?>

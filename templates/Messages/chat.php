@@ -27,3 +27,24 @@
 
               </div>
   </div>
+
+<script type="text/javascript">
+  function openPrompt(){
+
+        $.ajax({
+
+            method:"POST",
+            url : "<?php $this->Url->build(['controller' => 'Messages', 'action' =>'view']) ?>",
+            beforeSend: function (xhr) { // Add this line
+        xhr.setRequestHeader('X-CSRF-Token', $('[name="_csrfToken"]').val());
+    },
+
+            success:function(data){
+                $("#user_details").html(data);
+            }
+        }) 
+  
+    
+}
+
+</script>

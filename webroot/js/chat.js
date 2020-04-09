@@ -1,41 +1,33 @@
 $(document).ready(function(e){
 
-    console.log("ready function");
+
 
 });
 
 
-function openPrompt()
-{
 
-    console.log("Inside the open prompt");
-    var cancelled = true;
-    
-  var logo = prompt('Please enter a value:', function(value)
-    {
 
+
+        $('#testform').submit(function(event) {
         $.ajax({
-            type:"POST",
-            data:{value_to_send:value}, 
-            url:"/users/chats/chat/",
-            success : function(data) {
-               alert(data);// will alert "ok"
-
+            type: 'POST',
+            url: "/users/messages/",
+            data: $('#testform').serialize(),
+            success: function(data){ 
+                alert('Wow this actually worked');
             },
-            error : function() {
-               alert("false");
+            error:function() {
+                alert('This will never work');
             }
         });
-
-
-        }, function()
-       {
-
-        });
-};
-function fetch_users(argument){
+        event.preventDefault(); // Stops form being submitted in traditional way
+    }); 
+  
     
-}
+
+
+$(document).on('click','')
+
 function make_chat_dialog_box(to_user_id, to_user_name)
  {
   var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="You have chat with '+to_user_name+'">';
@@ -48,15 +40,9 @@ function make_chat_dialog_box(to_user_id, to_user_name)
   $('#user_model_details').html(modal_content);
  }
 
- $(document).on('click', '.start_chat', function(){
-          var to_user_id = 'username';
-          var to_user_name = 'anotherName';
-          make_chat_dialog_box(to_user_id, to_user_name);
-                  $("#user_dialog_"+to_user_id).dialog({
-                   autoOpen:false,
-                   width:300
-                  });
-                  $('#user_dialog_'+to_user_id).dialog('open');
+ $(document).on('submit', '#ajaxForm', function(){
+          
+          openPrompt();
  });
 
 

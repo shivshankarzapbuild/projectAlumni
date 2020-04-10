@@ -1,29 +1,41 @@
-<?php 
-    echo $this->Form->create($messages,array('id'=>'testform'));
-    echo $this->Form->input('Something');
-    echo $this->Form->submit();
-    echo $this->Form->end();
-?>
+<div class="messages index large-9 medium-8 columns content">
+    <h3><?= __('messages') ?></h3>
+
+    <?= $this->Form->create();?>
+    <?= $this->Form->control('search');?>
+    
+
+    <div class="table-content">
+        <table cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                    
+                    <th scope="col"><?= $this->Paginator->sort('messageType') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('message') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <?php foreach ($messages as $message): ?>
+                <tr>
+                    <td><?= $this->Number->format($message->id) ?></td>
+                    
+                    <td><?= h($message->messagetype) ?></td>
+                    <td><?= h($message->message) ?></td>
+                    <td><?= h($message->created) ?></td>
+                    <td><?= h($message->modified) ?></td>
+                    
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
 
 
-<script type="text/javascript">
-	
-	 $('#testform').submit(function(event) {
-        $.ajax({
-            type: 'POST',
-            url: "/users/messages/view",
-            headers : {
-			      'X-CSRF-Token': $('[name="_csrfToken"]').val()
-			   },
-            data: $('#testform').serialize(),
-            success: function(data){ 
-                alert('this worked');
-            },
-            error:function() {
-                alert('This not worked');
-            }
-        });
-
-        event.preventDefault(); // Stops form being submitted in traditional way
-    }); 
-</script>

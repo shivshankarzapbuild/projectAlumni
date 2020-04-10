@@ -4,7 +4,8 @@
       
     </div>
     <div class="col-sm-10">
-    <?php  foreach ($posts as $post): ?>      
+    
+   <?php  foreach ($posts as $post): ?>      
       <center>
       <div class="posts">
       <article class="articleClass">
@@ -57,3 +58,32 @@
 
 
 <?= $this->element('footer') ?>
+
+<script type="text/javascript">
+  
+  $('document').ready(function(){
+
+         $('#search').keyup(function(){
+
+            var searchkey = $(this).val();
+            searchmessages( searchkey );
+         });
+
+        function searchmessages( keyword ){
+            var data = keyword;
+
+
+        $.ajax({
+
+                    method: 'get',
+                    url : '/users/searchuser',
+                    data: {keyword:data},
+
+                    success: function( response )
+                    {       
+                       $('.table-content').html(response);
+                    }
+                });
+        };
+    });
+</script>

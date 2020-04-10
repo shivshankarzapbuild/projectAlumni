@@ -45,6 +45,7 @@ class UsersController extends AppController
             'contain' => ['Posts'],
             ]);
 
+            
             // $posts = $this->Posts->find('list',['limit'=>200]);
 
 			$this->set('title','Homepage');
@@ -300,5 +301,22 @@ public function profile(){
                 }
 
                 }
+            }
+
+    public function searchuser(){
+
+        $this->request->allowMethod('ajax');
+
+            $keyword = $this->request->getQuery('keyword');
+
+
+             $query = $this->Users->find('all',[
+              'conditions' => ['id' => $keyword],
+
+        ]);
+            pr($query); die("messages");
+            
+            $this->set('names', $this->paginate($query));
+            $this->set('_serialize', ['names']);
             }
 }

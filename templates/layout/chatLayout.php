@@ -18,7 +18,7 @@
     <?= $this->Html->css('bootstrap-grid.css'); ?>
     <?= $this->Html->css('bootstrap-grid.min.css'); ?>
     <?= $this->Html->css('chat.css'); ?>
-    <?= $this->Html->css('//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'); ?>
+    <?= $this->Html->css('http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'); ?>
 
     <?= $this->Html->script('chat.js'); ?>
 

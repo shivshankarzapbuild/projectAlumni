@@ -14,6 +14,7 @@
 
 			parent::initialize();
 			$this->viewBuilder()->setLayout('chatLayout');
+			$this->loadComponent('RequestHandler');
 
 			$this->loadComponent('Security');
 		} 
@@ -21,29 +22,27 @@
 		
 
 		public function add(){
-			$messages = $this->Messages->newEmptyEntity();
-
-			if( $this->request->is('ajax') ) {
-
-			      $newData  = $this->request->getData(); 
-
-			      echo '<script> console.log("Ajax request") </script>';
-			}
+			$messages = $this->paginate($this->Messages);
 
 			$this->set(compact('messages'));
 		}
 
 		public function view(){
 
+			$this->request->allowMethod('ajax');
 
-			if( $this->request->is('ajax') ) {
-			      $newData  = $this->request->getData(); 
-
-			      echo '<script> console.log("Ajax request") </script>';    
-			      
-			    }
-
+			$keyword = $this->request->getQuery('keyword');
+			 $query = $this->Messages->find('all',[
+              'conditions' => ['message LIKE'=>'%'.$keyword.'%'],
+              'order' => ['Messages.id'=>'DESC'],
+              'limit' => 10
+        ]);
+			// pr($messages); die("messages");
+			
+			$this->set('messages', $this->paginate($query));
+	        $this->set('_serialize', ['messages']);
 		}
+		
 		public function chat(){
 
 
@@ -51,8 +50,7 @@
 			if( $this->request->is('ajax') ) {
 			      $new = $this->request->data; 
 
-			      echo $new; die("hello");
-
+			     
 			        echo "ok";
 			        
 			    }

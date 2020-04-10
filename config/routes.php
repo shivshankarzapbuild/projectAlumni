@@ -73,6 +73,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/users/profile', ['controller' => 'Users', 'action' => 'profile']);
     
     $builder->connect('/users/admin', ['controller' => 'Users', 'action' => 'admin']);
+    $builder->connect('/users/searchuser', ['controller' => 'Users', 'action' => 'searchuser']);
     $builder->connect('/users/registration', ['controller' => 'Users', 'action' => 'registration']);
     $builder->connect('/posts/logout', ['controller' => 'Users', 'action' => 'logout']);
     $builder->connect('/users/resetpassword', ['controller' => 'Users', 'action' => 'resetpassword']);
@@ -101,7 +102,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
     // Messages routes
 
-        $builder->connect('/users/messages/chat/*', ['controller' => 'Messages', 'action' => 'chat']);
+        $builder->connect('/users/messages/chat/', ['controller' => 'Messages', 'action' => 'chat']);
         $builder->connect('/users/messages/view', ['controller' => 'Messages', 'action' => 'view']);
         $builder->connect('/users/messages/add', ['controller' => 'Messages', 'action' => 'add']);
 

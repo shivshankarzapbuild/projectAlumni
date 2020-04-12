@@ -1,41 +1,18 @@
-<div class="messages index large-9 medium-8 columns content">
-    <h3><?= __('messages') ?></h3>
+<?= $this->element('header') ?>
 
-    <?= $this->Form->create();?>
-    <?= $this->Form->control('search');?>
+<div class="row">
+  <div class="col-sm-4" style="background-color: lavender">
     
+  
+  </div>
+    <div class="col-sm-8" style="margin-top: 50px;">
 
-    <div class="table-content">
-        <table cellpadding="0" cellspacing="0">
-            <thead>
-                <tr>
-                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                    
-                    <th scope="col"><?= $this->Paginator->sort('messageType') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('message') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                    
-                </tr>
-            </thead>
 
-            <tbody>
 
-                <?php foreach ($messages as $message): ?>
-                <tr>
-                    <td><?= $this->Number->format($message->id) ?></td>
-                    
-                    <td><?= h($message->messagetype) ?></td>
-                    <td><?= h($message->message) ?></td>
-                    <td><?= h($message->created) ?></td>
-                    <td><?= h($message->modified) ?></td>
-                    
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        
+
+    </div>
+
+    <div class="col-sm-2"> 
+     
     </div>
 </div>
-
-

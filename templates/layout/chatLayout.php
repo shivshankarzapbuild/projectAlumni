@@ -7,10 +7,19 @@
         
         <?= $this->fetch('title') ?>
     </title>
-    <?=  $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'); ?>
-    <?=  $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'); ?>
-    <?=  $this->Html->script('https://code.jquery.com/ui/1.12.1/jquery-ui.js'); ?>
-    <?=  $this->Html->script('https://code.jquery.com/jquery-1.12.4.js'); ?>
+    <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'); ?>
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'); ?>
+    <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+    
+    <?php echo $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'); ?>
+
+    
+
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('bootstrap.css'); ?>
@@ -18,11 +27,10 @@
     <?= $this->Html->css('bootstrap-grid.css'); ?>
     <?= $this->Html->css('bootstrap-grid.min.css'); ?>
     <?= $this->Html->css('chat.css'); ?>
-    <?= $this->Html->css('http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'); ?>
 
-    <?= $this->Html->script('chat.js'); ?>
-
-    
+    <?php echo $this->Html->script('chat.js'); ?>
+    <?php echo $this->Html->script('bootstrap.min.js'); ?>
+    <?php echo $this->Html->script('bootstrap.js'); ?>
 
 
     <?= $this->fetch('meta') ?>
@@ -30,25 +38,17 @@
     <?= $this->fetch('script') ?>
 </head>
 <body>
-   <div class="container mt-3">
-
-
-
-    <nav class="top-nav">
-        
-    </nav>
     <main class="main">
-
-        <div class="container">
-
+        
+             
             <?= $this->Flash->render() ?>
 
             <?= $this->fetch('content') ?>
-        </div>
-        <div>
 
-    </div>
+           
+       
     </main>
+
     <footer>
     </footer>
 </body>

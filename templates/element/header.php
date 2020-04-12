@@ -16,7 +16,7 @@
 
           </li>
           <li class="nav-item">
-            <?= $this->Html->link(__('Chats'),['controller'=>'Messages','action' => 'chat','class' => 'nav-link']) ?>
+            <?= $this->Html->link(__('Chats'),['controller'=>'Messages','action' => 'message','class' => 'nav-link']) ?>
           </li>
            <li class="nav-item">
             <?= $this->Html->link(__('Help'),['controller'=>'Users','action' => 'help','class' => 'nav-link']) ?>

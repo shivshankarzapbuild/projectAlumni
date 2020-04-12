@@ -3,7 +3,7 @@
 
 	namespace App\Controller;
 	use Cake\Controller\Component;
-	use Cake\Http\Middleware\CsrfProtectionMiddleware;
+	
 
 	class MessagesController extends AppController
 	{
@@ -13,23 +13,31 @@
 		public function initialize() : void{
 
 			parent::initialize();
-			$this->viewBuilder()->setLayout('chatLayout');
-			$this->loadComponent('RequestHandler');
+			$this->loadModel('Users');
 
-			$this->loadComponent('Security');
+			
+			
 		} 
+		// public function beforeFilter(EventInterface $event)
+		//     {
+		//         parent::beforeFilter($event);
+
+		//         if ($this->request->getParam('action') === 'onlineusers') {
+		//             $this->FormProtection->setConfig('validate', false);
+		//         }
+		//     }
 		
 		
 
 		public function add(){
-			$messages = $this->paginate($this->Messages);
+			
 
-			$this->set(compact('messages'));
+
 		}
 
 		public function view(){
 
-			$this->request->allowMethod('ajax');
+			$this->request->allowMethod(['post','ajax']);
 
 			$keyword = $this->request->getQuery('keyword');
 			 $query = $this->Messages->find('all',[
@@ -45,15 +53,59 @@
 		
 		public function chat(){
 
+			$this->request->allowMethod(['post','ajax']);
 
+			$keyword = $this->request->getQuery();
 
-			if( $this->request->is('ajax') ) {
-			      $new = $this->request->data; 
+ 
+			$messages = $this->Messages->newEmptyEntity();
 
-			     
-			        echo "ok";
+			
 			        
-			    }
+	  }
+
+
+		public function onlineusers(){
+
+			 $this->request->allowMethod(['post','ajax']);
+			// $token = $this->request->getParam('_csrfToken');
+
+			// echo $token; die("sdfgs");
+			$user = $this->Authentication->getIdentity();
+
+			$users = $this->Users->find('all',[
+
+				'conditions' => ['id !=' => $user->id]
+			]);
+
+			$this->set(compact('users'));
+
+		}
+
+		public function message(){
+			$this->viewBuilder()->setLayout('chatLayout');
+			
+
+		
+		}
+		public function lastactivity(){
+
+
+		}
+
+		function fetct_user_last_activity(){
+
+			$user = $this->Authentication->getIdentity();
+
+			$users = $this->Users->find('all',[
+
+				'conditions' => [
+				
+					'id !=' => $user->id,
+					'ORDER BY ' => $user->last_activity . "  DESC"
+
+				]
+			]);
 
 
 		}

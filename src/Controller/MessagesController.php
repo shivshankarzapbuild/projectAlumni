@@ -75,7 +75,9 @@
 
 			$users = $this->Users->find('all',[
 
-				'conditions' => ['id !=' => $user->id]
+				'conditions' => [
+					'id !=' => $user->id
+				]
 			]);
 
 			$this->set(compact('users'));
@@ -83,32 +85,14 @@
 		}
 
 		public function message(){
+
 			$this->viewBuilder()->setLayout('chatLayout');
-			
+
+					
+		}
+		
 
 		
-		}
-		public function lastactivity(){
-
-
-		}
-
-		function fetct_user_last_activity(){
-
-			$user = $this->Authentication->getIdentity();
-
-			$users = $this->Users->find('all',[
-
-				'conditions' => [
-				
-					'id !=' => $user->id,
-					'ORDER BY ' => $user->last_activity . "  DESC"
-
-				]
-			]);
-
-
-		}
 
 	}
 

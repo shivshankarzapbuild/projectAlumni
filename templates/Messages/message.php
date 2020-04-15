@@ -62,16 +62,40 @@
              $(document).on('click', '#start_chat', function(){
 
               var to_user_id = $(this).data('touserid');
-              console.log(to_user_id);
               var to_user_name = $(this).data('tousername');
               make_chat_dialog_box(to_user_id, to_user_name);
-              $("#user_dialog_"+to_user_id).dialog({
-               autoOpen:false,
-               width:400,
-               height:400
-              });
-              $('#user_dialog_'+to_user_id).dialog('open');
-             });
+                  $("#user_dialog_"+to_user_id).dialog({
+                   autoOpen:false,
+                   width:400,
+                   height:400
+                  });
+                      $('#user_dialog_'+to_user_id).dialog('open');
+
+            });
+
+             $(document).on('click','.send_chat',function(){
+
+                var touserid = $(this).attr('id');
+                var chatmessage = $('#chat_message_'+touserid).val();
+                
+                    $.ajax({
+
+                        url:'/users/messages/insert',
+                        method:'post',
+                        data:{ touserid : touserid , chatmessage : chatmessage},
+                        beforeSend: function(request) {
+                    request.setRequestHeader('X-CSRF-Token' ,'<?php echo $this->request->getAttribute('csrfToken'); ?>');
+                  },
+
+                        success: function(data){
+
+                            $(".chat_history").html(data);
+                            $('#chat_message_'+touserid).val("");
+                        }
+        
+
+                    });
+                });
 
     });
 </script>

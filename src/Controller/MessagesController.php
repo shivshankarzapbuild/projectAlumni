@@ -14,6 +14,7 @@
 
 			parent::initialize();
 			$this->loadModel('Users');
+			$this->loadModel('Conversations');
 
 			
 			
@@ -90,10 +91,45 @@
 
 					
 		}
+
+		public function insert(){
+
+			$message = $this->Messages->newEmptyEntity();
+
+			$this->request->allowMethod(['post','ajax']);
+
+			if( $this->request->is('ajax')) {
+		     $messages = $_POST['chatmessage'];
+		     $userid = $_POST['touserid'];
+
+		     // echo $messages ." ". $userid;
+		     
+		     $message->message = $messages;
+		     $message->sender_id = $_SESSION['user_id'];
+		     $message->participant_id = $userid;
+		     $message->conversation_id = 1;
+
+		     // pr($message);
+
+		    $value = $this->Messages->save($message);
+
+
+		     $newmessages = $this->Messages->find('all',[
+
+		     	'conditions' => ['conversation_id' => 1]
+		     ]);
+
+		     $users = $this->Users->findById($message->participant_id);
+		      // $this->request->getQuery('chatmessage');
+
+		     $this->set(compact('newmessages','users'));
+
+		}
+
+		}
 		
 
 		
 
 	}
-
 ?>

@@ -108,6 +108,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
         $builder->connect('/users/messages/message', ['controller' => 'Messages', 'action' => 'message']);
         $builder->connect('/users/messages/onlineusers', ['controller' => 'Messages', 'action' => 'onlineusers']);
         $builder->connect('/users/messages/insert', ['controller' => 'Messages', 'action' => 'insert']);
+        $builder->connect('/users/messages/fetchhistory', ['controller' => 'Messages', 'action' => 'fetchhistory']);
 
 
     // $builder->connect('/admin', ['prefix' => 'Admin','controller' => 'Admins', 'action' => 'index']);

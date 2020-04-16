@@ -25,6 +25,7 @@
 
         
         fetch_user();
+        update_user_chat_history();
 
         },5000);
          
@@ -51,6 +52,7 @@
              {
               var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="You have chat with '+to_user_name+'">';
               modal_content += '<div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
+              modal_content += fetch_user_chat_history(to_user_id);
               modal_content += '</div>';
               modal_content += '<div class="form-group">';
               modal_content += '<textarea name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control"></textarea>';
@@ -63,11 +65,13 @@
 
               var to_user_id = $(this).data('touserid');
               var to_user_name = $(this).data('tousername');
+
               make_chat_dialog_box(to_user_id, to_user_name);
+
                   $("#user_dialog_"+to_user_id).dialog({
                    autoOpen:false,
                    width:400,
-                   height:400
+                   height:600
                   });
                       $('#user_dialog_'+to_user_id).dialog('open');
 
@@ -96,6 +100,39 @@
 
                     });
                 });
+
+             function fetch_user_chat_history(to_user_id){
+
+                $.ajax({
+
+                        url:'/users/messages/fetchhistory',
+                        method:'post',
+                        data:{ touserid : to_user_id },
+                        beforeSend: function(request) {
+                    request.setRequestHeader('X-CSRF-Token' ,'<?php echo $this->request->getAttribute('csrfToken'); ?>');
+                  },
+
+                        success: function(data){
+
+                            $("#chat_history_"+to_user_id).html(data);
+                           ;
+                        }
+        
+
+                    });
+             }
+
+             function update_user_chat_history(){
+
+                $('.chat_history').each(function(){
+
+                  var to_user_id = $(this).data('touserid');
+
+                  fetch_user_chat_history(to_user_id);
+                
+
+                });
+             }
 
     });
 </script>

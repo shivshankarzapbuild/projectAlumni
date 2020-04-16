@@ -14,20 +14,19 @@
 
 			parent::initialize();
 			$this->loadModel('Users');
+			$this->loadModel('Conversations');
+
+
+			$conversation = $this->Conversations->newEmptyEntity();
+
+			$conversation->id = $_SESSION['user_id'];
+			$conversation->creator_id = $_SESSION['user_id'];
+
+			$this->Conversations->save($conversation);
 
 			
 			
 		} 
-		// public function beforeFilter(EventInterface $event)
-		//     {
-		//         parent::beforeFilter($event);
-
-		//         if ($this->request->getParam('action') === 'onlineusers') {
-		//             $this->FormProtection->setConfig('validate', false);
-		//         }
-		//     }
-		
-		
 
 		public function add(){
 			
@@ -75,7 +74,9 @@
 
 			$users = $this->Users->find('all',[
 
-				'conditions' => ['id !=' => $user->id]
+				'conditions' => [
+					'id !=' => $user->id
+				]
 			]);
 
 			$this->set(compact('users'));
@@ -83,33 +84,80 @@
 		}
 
 		public function message(){
+
 			$this->viewBuilder()->setLayout('chatLayout');
-			
+
+					
+		}
+
+		public function insert(){
+
+			$message = $this->Messages->newEmptyEntity();
+
+			$this->request->allowMethod(['post','ajax']);
+
+			if( $this->request->is('ajax')) {
+			     $messages = $_POST['chatmessage'];
+			     $userid = $_POST['touserid'];
+
+			     // echo $messages ." ". $userid;
+			     
+			     $message->message = $messages;
+			     $message->sender_id = $_SESSION['user_id'];
+			     $message->participant_id = $userid;
+			     $message->conversation_id = $_SESSION['user_id'];
+
+			     // pr($message);
+
+			    $value = $this->Messages->save($message);
+
+
+			     $newmessages = $this->Messages->find('all', 
+						        array(
+						            'limit' => 200,
+						            'order' => 'Messages.created DESC',
+						            'recursive' => 1,
+						            'conditions' => ['conversation_id' => $_SESSION['user_id']],
+						       )
+						   );
+
+			     $users = $this->Users->findById($message->participant_id);
+			      // $this->request->getQuery('chatmessage');
+
+			     $this->set(compact('newmessages','users'));
+
+			}
+
+		}
+
+		public function fetchhistory(){
+
+			$this->request->allowMethod(['post','ajax']);
+
+			if( $this->request->is('ajax')) {
+
+					$userid = $_POST['touserid'];
+					 $newmessages = $this->Messages->find('all', 
+						        array(
+						            'limit' => 200,
+						            'order' => 'Messages.created DESC',
+						            'recursive' => 1,
+						            'conditions' => ['conversation_id' => $_SESSION['user_id']],
+
+						       )
+						   );
+
+				     $users = $this->Users->findById($userid);
+				   
+
+				     $this->set(compact('newmessages','users'));
+			}
+		}
+
 
 		
-		}
-		public function lastactivity(){
 
-
-		}
-
-		function fetct_user_last_activity(){
-
-			$user = $this->Authentication->getIdentity();
-
-			$users = $this->Users->find('all',[
-
-				'conditions' => [
-				
-					'id !=' => $user->id,
-					'ORDER BY ' => $user->last_activity . "  DESC"
-
-				]
-			]);
-
-
-		}
+		
 
 	}
-
 ?>

@@ -174,7 +174,16 @@ class UsersController extends AppController
                     else
                     {
                         $users = $this->Authentication->getIdentity();
+
                         $_SESSION['user_id'] = $users->id;
+
+                        $user = $this->Users->get($users->id);
+
+                        $user->last_activity = date('Y-m-d H:i:s');
+                        
+
+                        $this->Users->save($user);
+
                          $redirect = $this->request->getQuery('redirect', [
                         'controller' => 'Users',
                         'action' => 'home',
@@ -201,6 +210,12 @@ class UsersController extends AppController
 			    $result = $this->Authentication->getResult();
 			    // regardless of POST or GET, redirect if user is logged in
 			    if ($result->isValid()) {
+
+                    $user = $this->Users->get($_SESSION['user_id']);
+
+                        $user->last_activity = NULL;
+                        $this->Users->save($user);
+
 			        $this->Authentication->logout();
 			        return $this->redirect(['controller' => 'Users', 'action' => 'login']);
 			    }

@@ -15,16 +15,6 @@
 			parent::initialize();
 			$this->loadModel('Users');
 			$this->loadModel('Conversations');
-
-
-			$conversation = $this->Conversations->newEmptyEntity();
-
-			$conversation->id = $_SESSION['user_id'];
-			$conversation->creator_id = $_SESSION['user_id'];
-
-			$this->Conversations->save($conversation);
-
-			
 			
 		} 
 

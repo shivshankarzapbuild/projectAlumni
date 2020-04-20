@@ -12,6 +12,8 @@
             
         </div>
 
+        <div id="conversations"> </div>
+
 
     </div>
 </div>
@@ -47,6 +49,23 @@
             });
          }
 
+         function optionConversation(){
+
+
+              var  selectOption = '<div id="data" class="data" title="select">';
+                    
+                    selectOption += '<h3> Start a new Conversation</h3>';
+                    selectOption += '<button type="button" name="yes" id="yes" class="btn btn-success yes">Yes</button>';
+                    selectOption +="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                    selectOption += '<button type="button" name="no" id="no" class="btn btn-danger no" style="text-align:right;">No</button>';
+                    
+
+                   selectOption += ' </div>';
+
+                   $('#conversations').html(selectOption);
+               
+             }
+
     
          function make_chat_dialog_box(to_user_id, to_user_name)
              {
@@ -66,16 +85,25 @@
               var to_user_id = $(this).data('touserid');
               var to_user_name = $(this).data('tousername');
 
-              make_chat_dialog_box(to_user_id, to_user_name);
+              optionConversation();
+              // make_chat_dialog_box(to_user_id, to_user_name);
+
+              $("#data").dialog({
+                width:400,
+                height:200
+              });
+
+               // $('#data').dialog();
 
                   $("#user_dialog_"+to_user_id).dialog({
                    autoOpen:false,
                    width:400,
                    height:600
                   });
-                      $('#user_dialog_'+to_user_id).dialog('open');
+                 $('#user_dialog_'+to_user_id).dialog('open');
 
             });
+
 
              $(document).on('click','.send_chat',function(){
 
@@ -133,6 +161,8 @@
 
                 });
              }
+
+
 
     });
 </script>

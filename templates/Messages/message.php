@@ -1,4 +1,4 @@
-<?= $this->element('header') ?>
+<?= $this->element('header'); ?>
 
 <div class="row">
 
@@ -95,12 +95,12 @@
 
                // $('#data').dialog();
 
-                  $("#user_dialog_"+to_user_id).dialog({
-                   autoOpen:false,
-                   width:400,
-                   height:600
-                  });
-                 $('#user_dialog_'+to_user_id).dialog('open');
+                 //  $("#user_dialog_"+to_user_id).dialog({
+                 //   autoOpen:false,
+                 //   width:400,
+                 //   height:600
+                 //  });
+                 // $('#user_dialog_'+to_user_id).dialog('open');
 
             });
 

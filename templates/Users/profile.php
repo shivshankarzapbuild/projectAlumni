@@ -42,15 +42,15 @@
           <button class="open-button" onclick="openForm()">Add Post</button>
 
                 <div class="form-popup" id="myForm">
-                  <?= $this->form->create($user,['enctype'=>'multipart/form-data','class' => 'form-container','action'=>'/posts/add']) ?>
+                  <?= $this->form->create($user,['enctype'=>'multipart/form-data','class' => 'form-container']) ?>
                     
                   <?= $this->form->control('text',['type'=>'textarea','id'=>'input','placeholder'=>'Write Something','class'=>'form-control'])?>
                    
 
                     <br><br>
                     <?= $this->form->control('image',['type'=>'file'])?>
-                    <?= $this->form->control('Post',['type'=>'submit','class'=>'btn'])?>
-                    <?= $this->form->control('Close',['class'=>'btn cancel','onclick'=>'closeForm()'])?>
+                    <?= $this->form->control('Post',['type'=>'submit','class'=>'btn btn-success submit','id'=>'submit'])?>
+                    <?= $this->form->control('Close',['class'=>'btn btn-dabger cancel','onclick'=>'closeForm()'])?>
 
 
                  
@@ -136,3 +136,22 @@
       
     </div>
 </div>
+
+<script type = "text/javascript">
+  
+  $(document).on('click','.open-button',function(){
+
+    $('#myForm').dialog({
+
+      width:400,
+      height:500
+    });
+
+  });
+
+  $(document).on('click','#submit',function(){
+
+    console.log("Submit button clicked");
+
+  });
+</script>

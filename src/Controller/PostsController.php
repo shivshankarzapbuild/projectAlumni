@@ -22,59 +22,59 @@
 			 // pr($user_id ); die("user id ");
 
 
+			$this->request->allowMethod(['post','ajax']);
 
+				
 
 			if($this->request->is('post')){
+			   $data = $this->request->getData();
+			   $data = implode($data);
+			   $data1 = json_decode($data);
+			   echo "<pre>".print_r($data1)."</pre>";
+			   //You should be able to see file data in this array
+			}
+					// $this->set(compact('data'));
+
+					// echo $data;
+
+				
 
 				// die("post data");
 
-				if(!empty($this->request->getData('image'))){
+				// if(!empty($this->request->getData('image'))){
 
-					// die(" Not EMpty Image");
+				// 	// die(" Not EMpty Image");
 
-				$file =  $this->request->getData('image')->getClientFilename('image');
+				// $file =  $this->request->getData('image')->getClientFilename('image');
 
 
-                $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
+    //             $file_name = date("dmYHis").preg_replace('/\s/', '', $file);
                 
-                $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
-                // echo $tmpPath;
+    //             $tmpPath = $this->request->getData('image')->getStream('image')->getMetadata('uri');
+    //             // echo $tmpPath;
 
-                move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
+    //             move_uploaded_file($tmpPath,WWW_ROOT."img/".$file_name);
 
-                $post['user_id'] = $user_id;
+    //             $post['user_id'] = $user_id;
 
-                // echo $post['user_id']; die("post-> user_id");
+				// $post = $this->Posts->patchEntity($post,$this->request->getData());
+				// $post['image'] = $file_name;
 
-                // $post = $this->Posts->patchEntity($post, $this->request->getData());
-                
-                // $post['image'] = $file_name;
-                // echo $post['image'];die("post -> image");
-                
-				
-				// echo $post['image'];
+				// if($this->Posts->save($post)){
 
-				// pr($this->request->getData());die("post add ------------->");
+				// 	$this->Flash->success('Post Added ');
+				// 	$this->redirect(['controller'=>'Users','action'=>'home']);
+				// }
 
-				$post = $this->Posts->patchEntity($post,$this->request->getData());
-				$post['image'] = $file_name;
-				// pr($post);die("Data of the post-------------->");
+				// else
+				// {
+				// 	echo '<script> alert("The post could not be saved")</script>';
+				// }
 
-				if($this->Posts->save($post)){
+				// }
+			
 
-					$this->Flash->success('Post Added ');
-					$this->redirect(['controller'=>'Users','action'=>'home']);
-				}
-
-				else
-				{
-					echo '<script> alert("The post could not be saved")</script>';
-				}
-
-				}
-			}
-
-			$this->set(compact('post','categories'));
+			// $this->set(compact('post','categories'));
 
 
 

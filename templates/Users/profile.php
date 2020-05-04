@@ -33,24 +33,19 @@
 
   </div>
     <div class="col-sm-8" style="margin-top: 50px;">
-
-      <?= $this->Html->link(__('Add Post'),['controller' => 'Posts' , 'action' => 'add'] )?>
-
-        
-
                 <center> 
           <button class="open-button" onclick="openForm()">Add Post</button>
 
                 <div class="form-popup" id="myForm">
-                  <?= $this->form->create($user,['enctype'=>'multipart/form-data','class' => 'form-container','action'=>'/posts/add']) ?>
+                  <?= $this->form->create($user,['enctype'=>'multipart/form-data','class' => 'form-container myForm']) ?>
                     
                   <?= $this->form->control('text',['type'=>'textarea','id'=>'input','placeholder'=>'Write Something','class'=>'form-control'])?>
                    
 
                     <br><br>
-                    <?= $this->form->control('image',['type'=>'file'])?>
-                    <?= $this->form->control('Post',['type'=>'submit','class'=>'btn'])?>
-                    <?= $this->form->control('Close',['class'=>'btn cancel','onclick'=>'closeForm()'])?>
+                    <?= $this->form->control('image',['type'=>'file','id'=>'file1','name'=>'file'])?>
+                    <?= $this->form->control('Post',['type'=>'submit','class'=>'btn btn-success submit','id'=>'submit'])?>
+                    <?= $this->form->control('Close',['class'=>'btn btn-danger cancel','onclick'=>'closeForm()'])?>
 
 
                  
@@ -136,3 +131,51 @@
       
     </div>
 </div>
+
+<script type = "text/javascript">
+  
+  $(document).on('click','.open-button',function(){
+
+    $('#myForm').dialog({
+
+      width:400,
+      height:500
+    });
+
+  });
+
+  $(document).on('click','#submit',function(e){
+
+    e.preventDefault();
+    console.log("Submit button clicked");
+
+    var data = $('#input').val();
+    var files = $('#file1')[0].files[0];
+
+    // console.log(data);
+    // console.log(files);
+
+    $.ajax({
+
+        url: '/users/posts/add',
+        method: 'post',
+        beforeSend: function(request) {
+                    request.setRequestHeader('X-CSRF-Token' ,'<?php echo $this->request->getAttribute('csrfToken'); ?>');
+                  },
+
+        processData: false,
+        contentType: false,
+        data: {data : data},
+        success: function(data){
+          
+          console.log(data);
+          // alert("Post added");
+        },
+        error:function(){
+          alert("post not added");
+        }
+
+      });
+
+  });
+</script>

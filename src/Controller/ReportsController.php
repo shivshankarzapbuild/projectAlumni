@@ -24,7 +24,7 @@ class ReportsController extends AppController
 
 		$user = $this->Authentication->getIdentity();
 
-		pr($user); die("Reports add ---------->>>");
+		pr($user);
 
 	}
 	public function view($id){
